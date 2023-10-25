@@ -20,6 +20,7 @@ function sessionData(session: Session | null) {
         if (user) {
             return (
                 <ul className="mt-4">
+                    <img src={user.image} />
                     {Object.keys(user).map((key) => (
                         <li key={key}>
                             <strong>{key}: </strong>
