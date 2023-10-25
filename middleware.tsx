@@ -10,10 +10,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.next();
     } else {
       // console.log("User not authenticated");
-      return new NextResponse(
-        JSON.stringify({ success: false, message: "not authenticated" }),
-        { status: 401, headers: { "content-type": "application/json" } }
-      );
+      return NextResponse.redirect(new URL("/", req.nextUrl));
     }
   } catch (error) {
     // console.log("Error in middleware");
