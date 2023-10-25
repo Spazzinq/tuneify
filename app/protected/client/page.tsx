@@ -1,19 +1,20 @@
-import { auth } from "@/app/auth";
+import { auth } from "@/auth";
+import { Session } from "next-auth";
 
-export default function Page() {
+export default async function Page() {
+    const session = await auth()
+
     return (
         <section className="py-24">
             <div className="container">
                 <h2 className="mt-4 font-medium text-emerald-500">Logged in as:</h2>
-                {generateListFromSession()}
+                {sessionData(session)}
             </div>
         </section>
     );
 }
 
-async function generateListFromSession() {
-    const session = await auth();
-
+function sessionData(session: Session | null) {
     if (session) {
         const { user } = session;
         if (user) {

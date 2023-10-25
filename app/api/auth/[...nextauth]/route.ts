@@ -9,7 +9,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: 'user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-currently-playing'
+          scope: process.env.SPOTIFY_SCOPES
         }
       }
     }),
@@ -30,9 +30,8 @@ export const authOptions: AuthOptions = {
       return session
     },
     async redirect({url, baseUrl}) {
-      console.log('url', url);
-      console.log('baseUrl', baseUrl);
-      
+      // console.log('url', url);
+      // console.log('baseUrl', baseUrl);
       return url;
     }
   }
