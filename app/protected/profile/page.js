@@ -20,7 +20,7 @@ export default async function Page() {
     );
 }
 
-async function getTop(type, sessio) {
+async function getTop(type, session) {
     if (session && session.user) {
         let token = session.user.accessToken
 
@@ -74,7 +74,7 @@ function sessionData(session) {
             return (
                 <div>
                     <ul className="mt-4">
-                        <Image src={user.image} />
+                        <Image src={user.image} width='50' height='50' />
                         {Object.keys(user).map((key, index) => (
                             <li key={index}>
                                 <strong>{key}: </strong>

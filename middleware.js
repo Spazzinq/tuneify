@@ -6,7 +6,8 @@ export async function middleware(req) {
   try {
     const token = await getToken({ req });
 
-    return token ? NextResponse.next() : NextResponse.redirect(new URL("/", req.nextUrl));
+    return token
+        ? NextResponse.next() : NextResponse.redirect(new URL("/", req.nextUrl));
   } catch (error) {
     // console.log("Error in middleware");
     // console.log(error);

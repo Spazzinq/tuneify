@@ -24,7 +24,7 @@ const Icon = styled(FaSpotify)`
 
 const SpotifySignIn = () => (
     
-    <SpotifySignInButton onClick={() => signIn('spotify', { callbackUrl: 'http://localhost:3000/protected/client' })}>
+    <SpotifySignInButton onClick={() => signIn('spotify', { callbackUrl: 'http://localhost:3000/protected/profile' })}>
         <Icon size={20} />
         Sign In with Spotify
     </SpotifySignInButton>
