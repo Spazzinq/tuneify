@@ -3,6 +3,7 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react"
 import Artist from "@/app/components/artist";
 import Track from "@/app/components/track";
+import Image from 'next/image'
 
 export default async function Page() {
     const session = await auth()
@@ -43,9 +44,9 @@ async function parseResponse(type : String, response: any) {
     let html = '';
 
     if (type === 'artists') {
-        html = data.items.map((item: any) => {
+        html = data.items.map((item: any, index: any) => {
             return (
-                <Artist name={item.name} imageUrl={item.images[0].url} />
+                <Artist key={index} name={item.name} imageUrl={item.images[0].url} />
             );
         });
     } else if (type === 'tracks') {
@@ -57,7 +58,7 @@ async function parseResponse(type : String, response: any) {
             // console.log(album.images[0].url)
 
             return (
-                <Track albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} />
+                <Track key={track.id} albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} />
             );
         });
     }
@@ -73,9 +74,9 @@ function sessionData(session: Session | null) {
             return (
                 <div>
                     <ul className="mt-4">
-                        <img src={user.image} />
-                        {Object.keys(user).map((key) => (
-                            <li key={key}>
+                        <Image src={user.image} />
+                        {Object.keys(user).map((key, index) => (
+                            <li key={index}>
                                 <strong>{key}: </strong>
                                 <span className="font-light">
                                     {user[key as keyof typeof user]}
