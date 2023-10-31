@@ -20,7 +20,7 @@ export default async function Page() {
     );
 }
 
-async function getTop(type : String, session: Session | null) {
+async function getTop(type, sessio) {
     if (session && session.user) {
         let token = session.user.accessToken
 
@@ -34,7 +34,7 @@ async function getTop(type : String, session: Session | null) {
     }
 }
 
-async function parseResponse(type : String, response: any) {
+async function parseResponse(type, response) {
     if (response.status == 204) {
         console.log("204 response from currently playing")
         return;
@@ -44,13 +44,13 @@ async function parseResponse(type : String, response: any) {
     let html = '';
 
     if (type === 'artists') {
-        html = data.items.map((item: any, index: any) => {
+        html = data.items.map((item, index) => {
             return (
                 <Artist key={index} name={item.name} imageUrl={item.images[0].url} />
             );
         });
     } else if (type === 'tracks') {
-        html = data.items.map((track: any) => {
+        html = data.items.map((track) => {
             let album = track.album
 
             // console.log(album)
@@ -67,7 +67,7 @@ async function parseResponse(type : String, response: any) {
     return html;
 }
 
-function sessionData(session: Session | null) {
+function sessionData(session) {
     if (session) {
         const { user } = session;
         if (user) {
@@ -79,7 +79,7 @@ function sessionData(session: Session | null) {
                             <li key={index}>
                                 <strong>{key}: </strong>
                                 <span className="font-light">
-                                    {user[key as keyof typeof user]}
+                                    {user[key]}
                                 </span>
                             </li>
                         ))}
