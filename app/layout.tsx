@@ -13,15 +13,15 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // code is going into here, but the redirect is not doing anything...
-  const session = await auth();
-  if (!session) { 
-    try {
-      redirect("/"); 
-    }
-    catch (e) {
-      console.log("redirecting to /login");
-    }
-  }
+  // const session = await auth();
+  // if (!session) { 
+  //   try {
+  //     redirect("/"); 
+  //   }
+  //   catch (e) {
+  //     console.log("redirecting to /login");
+  //   }
+  // }
   
   return (
     <html lang="en">
