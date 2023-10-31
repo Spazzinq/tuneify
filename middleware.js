@@ -5,13 +5,8 @@ export async function middleware(req) {
   // console.log(`Middleware called: ${req.url}`);
   try {
     const token = await getToken({ req });
-    if (token) {
-      return request.nextUrl.pathname.startsWith('/protected')
-        ? NextResponse.next() : NextResponse.redirect(new URL("/protect/client", req.nextUrl));
-    } else {
-      // console.log("User not authenticated");
-      return NextResponse.redirect(new URL("/", req.nextUrl));
-    }
+
+    return token ? NextResponse.next() : NextResponse.redirect(new URL("/", req.nextUrl));
   } catch (error) {
     // console.log("Error in middleware");
     // console.log(error);
