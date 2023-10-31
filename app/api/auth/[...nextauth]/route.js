@@ -1,7 +1,7 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
-export const authOptions: AuthOptions = {
+export const authOptions = {
   // Configure one or more authentication providers
   providers: [
     SpotifyProvider({
@@ -9,7 +9,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: process.env.SPOTIFY_SCOPES
+          scope: process.env.SPOTIFY_SCOPES,
         }
       }
     }),
@@ -27,6 +27,7 @@ export const authOptions: AuthOptions = {
       // Send properties to the client, like an access_token from a provider.
       session.user.userId = token.id;
       session.user.accessToken = token.accessToken;
+      
       return session
     },
     async redirect({url, baseUrl}) {
