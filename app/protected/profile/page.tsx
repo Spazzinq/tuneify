@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import Image from 'next/image'
 import Navbar from "@/components/nav";
 import { Key } from "react";
-import ArtistSquare from "@/components/artist_square";
+import ArtistLarge from "@/components/artist_large";
 import TrackLarge from "@/components/track_large";
 
 export default async function Page() {
@@ -11,11 +11,11 @@ export default async function Page() {
     const categories = ['artists', 'tracks']
 
     return (
-        <section>
-            <Navbar></Navbar>
+        <main>
+            <Navbar profileImageUrl={ session.user.image }></Navbar>
+            <h2 className="text-3xl font-bold text-center mb-4">Welcome, { session.user.name }</h2>
+            <p className="text-center">{sessionData(session)}</p>
             <div className="container">
-                <h2 className="mt-4 font-medium text-emerald-500">Logged in as:</h2>
-                {sessionData(session)}
 
 
                 {categories.map((category) => (
@@ -27,7 +27,7 @@ export default async function Page() {
                     </div>
                 ))}
             </div>
-        </section>
+        </main>
     );
 }
 
@@ -57,7 +57,7 @@ async function parseResponse(type: string, response: Response) {
     if (type === 'artists') {
         html = data.items.map((item: { name: string; images: { url: string; }[]; }, index: Key | null | undefined) => {
             return (
-                <ArtistSquare key={index} name={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} />
+                <ArtistLarge key={index} name={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={0} />
             );
         });
     } else if (type === 'tracks') {
@@ -85,7 +85,6 @@ function sessionData(session: { user: any; }) {
             return (
                 <div>
                     <ul className="mt-4">
-                        <Image src={user.image} width='50' height='50' alt={""} />
                         {Object.keys(user).map((key, index) => (
                             <li key={index}>
                                 <strong>{key}: </strong>
