@@ -15,13 +15,11 @@ export default async function Page() {
             <Navbar profileImageUrl={ session.user.image }></Navbar>
             <h2 className="text-3xl font-bold text-center mb-4">Welcome, { session.user.name }</h2>
             <p className="text-center">{sessionData(session)}</p>
-            <div className="container">
-
-
+            <div className="">
                 {categories.map((category) => (
                     <div className="my-8">
-                        <h2 className="text-5xl font-bold mb-4">{('Top ' + category[0].toUpperCase() + category.substring(1))}</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
+                        <h2 className="text-5xl font-bold ml-16 mb-4">{('Top ' + category[0].toUpperCase() + category.substring(1))}</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mx-20">
                             {getTop(category, session, 5)}
                         </div>
                     </div>
