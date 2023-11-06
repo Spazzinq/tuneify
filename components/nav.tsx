@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
+import Link from 'next/link';
 
 interface NavbarProps {
     profileImageUrl: string;
@@ -17,12 +18,12 @@ const Navbar: React.FC<NavbarProps> = ({ profileImageUrl }) => {
                     <div className="hidden sm:block sm:ml-6">
                         <div className="flex space-x-4">
                             {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                            <a href="/protected/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <Link href="/protected/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                 Profile
-                            </a>
-                            <a href="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            </Link>
+                            <Link href="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                 Journal
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex flex-row">

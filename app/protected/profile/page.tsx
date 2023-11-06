@@ -69,7 +69,7 @@ async function parseResponse(type: string, response: Response) {
             // console.log(album.images[0].url)
 
             return (
-                <TrackLarge key={track.id} albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} />
+                <TrackLarge key={track.id} albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} starRating={1} />
             );
         });
     }
