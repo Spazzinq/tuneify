@@ -1,9 +1,14 @@
 import React from 'react';
+import Image from 'next/image'
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+    profileImageUrl: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ profileImageUrl }) => {
     return (
         <nav className="bg-gray-800">
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
                     <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex-shrink-0 flex items-center">
@@ -21,8 +26,9 @@ const Navbar: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="hidden sm:block">
-                        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    <div className="sm:block flex flex-row">
+                        <Image src={profileImageUrl} alt="Profile Picture" className="h-10 w-10 rounded-full" />
+                        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ml-4">
                             + Log
                         </button>
                     </div>

@@ -1,6 +1,4 @@
 import { auth } from "@/auth";
-import Artist from "@/components/artist";
-import Track from "@/components/track";
 import Image from 'next/image'
 import Navbar from "@/components/nav";
 import { Key } from "react";
@@ -10,6 +8,8 @@ import TrackLarge from "@/components/track_large";
 export default async function Page() {
     const session = await auth()
 
+    const categories = ['artists', 'tracks']
+
     return (
         <section>
             <Navbar></Navbar>
@@ -17,26 +17,21 @@ export default async function Page() {
                 <h2 className="mt-4 font-medium text-emerald-500">Logged in as:</h2>
                 {sessionData(session)}
 
-                
-                <div className="my-8">
-                    <h2 className="text-2xl font-bold">Top Artists</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
-                        {getTop('artists', session, 5)}
-                    </div>
-                </div>
 
-                <div className="my-8">
-                    <h2 className="text-2xl font-bold">Top Tracks</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
-                        {getTop('tracks', session, 5)}
+                {categories.map((category) => (
+                    <div className="my-8">
+                        <h2 className="text-5xl font-bold mb-4">{('Top ' + category[0].toUpperCase() + category.substring(1))}</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
+                            {getTop(category, session, 5)}
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
         </section>
     );
 }
 
-async function getTop(type: string, session: { user: { accessToken: any; }; }, number : Number) {
+async function getTop(type: string, session: { user: { accessToken: any; }; }, number: Number) {
     if (session && session.user) {
         let token = session.user.accessToken
 
@@ -62,7 +57,7 @@ async function parseResponse(type: string, response: Response) {
     if (type === 'artists') {
         html = data.items.map((item: { name: string; images: { url: string; }[]; }, index: Key | null | undefined) => {
             return (
-                <ArtistSquare key={index} name={item.name} imageUrl={item.images[0].url} />
+                <ArtistSquare key={index} name={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} />
             );
         });
     } else if (type === 'tracks') {
@@ -78,7 +73,7 @@ async function parseResponse(type: string, response: Response) {
             );
         });
     }
-        
+
 
     return html;
 }
