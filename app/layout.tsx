@@ -4,6 +4,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { redirect } from 'next/navigation'
 
+// These styles apply to every route in the application
+import './globals.css'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
