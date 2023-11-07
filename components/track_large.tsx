@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image'
 import Rating from './rating';
+import { IconUnkown } from './icons';
 
 interface TrackProps {
     trackName: string;
@@ -16,15 +17,18 @@ const TrackLarge: React.FC<TrackProps> = ({ trackName, imageUrl, albumName, star
     const shortAlbumName = albumName.length > MAX_ALBUM_LENGTH ? albumName.slice(0, MAX_ALBUM_LENGTH) + "..." : albumName;
 
     return (
-            <div className="p-10">
-                <Image src={imageUrl} alt={trackName} width='200' height='200' className="rounded-lg mb-4" />
-                <div className="flex flex-col">
-                    <h2 className="text-left text-xl font-bold">{shortTrackName}</h2>
-                    <p className="text-left text-base">{shortAlbumName}</p>
-                </div>
-                <Rating starRating={starRating}  />
+        <div>
+            {
+                imageUrl == '' ? <IconUnkown className="rounded-lg aspect-square mb-3"></IconUnkown>
+                    : <Image src={imageUrl} alt={trackName} width='200' height='200' className="rounded-lg mb-4" />
+            }
+            <div className="flex flex-col">
+                <h2 className="text-left text-xl font-bold">{shortTrackName}</h2>
+                <p className="text-left text-base">{shortAlbumName}</p>
             </div>
-        );
+            <Rating starRating={starRating} />
+        </div>
+    );
 };
 
 export default TrackLarge;

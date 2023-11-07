@@ -16,3 +16,11 @@ export function IconStar({ className }: { className?: string }) {
       </svg>
     );
   }
+
+  export function IconUnkown({ className }: { className?: string }) {
+    return (
+      <svg width="200" height="200" className={className}>
+        <rect width="200" height="200" fill="rgb(57, 59, 64)" strokeWidth="3" stroke="rgb(0,0,0)" />
+      </svg>
+    );
+  }

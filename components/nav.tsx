@@ -1,12 +1,15 @@
 import React from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
+import { auth } from '@/auth';
+import { signIn, signOut } from 'next-auth/react';
+import Login from './nav_login';
 
 interface NavbarProps {
     profileImageUrl: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ profileImageUrl }) => {
+const Navbar: React.FC<NavbarProps> = async ({ profileImageUrl }) => {
     return (
         <nav className="bg-gray-800 mb-6">
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -27,6 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ profileImageUrl }) => {
                         </div>
                     </div>
                     <div className="flex flex-row">
+                        <Login session={await auth()}></Login>
                         <Image src={profileImageUrl} alt="Profile Picture" className="h-10 w-10 rounded-full" width={40} height={40} />
                         <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ml-4">
                             + Log

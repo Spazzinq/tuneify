@@ -17,9 +17,9 @@ export default async function Page() {
             <section>
                 {categories.map((category) => {
                     return (
-                        <div key={category} className="my-8 ml-16">
+                        <div key={category} className="my-8 ml-10">
                             <h2 className="text-5xl font-bold mb-4">{('Top ' + category[0].toUpperCase() + category.substring(1))}</h2>
-                            <div className="flex flex-row gap-20 ml-20 my-12">
+                            <div className="flex flex-row gap-20 ml-10 mr-20 my-12">
                                 {getTop(category, session, 5)}
                             </div>
                         </div>
@@ -60,17 +60,17 @@ async function parseResponse(type: string, response: Response) {
             );
         });
     } else if (type === 'tracks') {
-        // html = data.items.map((track: { album: any; id: Key | null | undefined; name: string; }) => {
-        //     let album = track.album
+        html = data.items.map((track: { album: any; id: Key | null | undefined; name: string; }) => {
+            let album = track.album
 
-        //     // console.log(album)
-        //     // console.log(album.name)
-        //     // console.log(album.images[0].url)
+            // console.log(album)
+            // console.log(album.name)
+            // console.log(album.images[0].url)
 
-        //     return (
-        //         <TrackLarge key={track.id} albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} starRating={1} />
-        //     );
-        // });
+            return (
+                <TrackLarge key={track.id} albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} starRating={1} />
+            );
+        });
     }
 
 
