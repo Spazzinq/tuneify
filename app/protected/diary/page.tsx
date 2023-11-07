@@ -14,9 +14,9 @@ export default function Diary() {
     <main>
       <Navbar profileImageUrl={''}></Navbar>
       <div className="flex">
-        <Image src={""} alt={""} width='200' height='200' className="rounded-lg mb-4" />
+        <Image src={""} alt={""} width='200' height='200' className="rounded-lg mb-4 mr-8" />
         <div> 
-            <h1>Album Name</h1>
+            <h1 className="text-3xl font-bold">Album Name</h1>
             <h2>Artist</h2>
             <h3>Date of Review</h3>
             <p> It's good! </p>

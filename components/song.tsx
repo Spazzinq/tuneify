@@ -13,7 +13,7 @@ const Song: React.FC<SongProps> = ({ num, name, starRating, review }) => {
     return (
         <div className="flex"> 
             <h1>{num}. {name}</h1>
-            <div className="flex flex-col">
+            <div className="flex flex-col ml-6">
                 <Rating starRating={starRating} />
                 <p>{review}</p>
             </div>
