@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
 import { auth } from '@/auth';
-import { signIn, signOut } from 'next-auth/react';
 import Login from './nav_login';
+import Logo from '@/components/logo';
 
 interface NavbarProps {
     profileImageUrl: string;
@@ -14,10 +14,7 @@ const Navbar: React.FC<NavbarProps> = async ({ profileImageUrl }) => {
         <nav className="bg-gray-800 mb-6">
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
-                    <div className="flex">
-                        <Image src={profileImageUrl} alt="Tuneify Logo" width={40} height={40} />
-                        <a href="" className="text-white text-2xl font-bold ml-2 mt-1">Tuneify</a>
-                    </div>
+                    <Logo logoSize={40} fontSize={3} />
                     <div className="hidden sm:block sm:ml-6">
                         <div className="flex space-x-4">
                             {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
