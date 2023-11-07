@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <main>
       <Navbar profileImageUrl={''}></Navbar>
-      {/* <Nav2></Nav2> */}
       <div className="mt-20">
         <h1 className="text-6xl text-center font-bold mb-6">Tuneify</h1>
         <h2 className="text-2xl text-center mb-8">Making music accessible. | Join us for a lifetime of discovery.</h2>
