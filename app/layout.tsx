@@ -1,13 +1,16 @@
-import { auth } from '@/auth'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { redirect } from 'next/navigation'
+import { Faustina, Inter, News_Cycle } from 'next/font/google'
+import { Russo_One } from 'next/font/google';
 
 // These styles apply to every route in the application
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+const faustina = Faustina({ subsets: ['latin'] })
+const russo = Russo_One({ subsets: ['latin'], weight: "400" })
+const news_cycle = News_Cycle({ subsets: ['latin'], weight: "700" })
+
 
 export const metadata: Metadata = {
   title: 'Tuneify',
@@ -15,20 +18,9 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // code is going into here, but the redirect is not doing anything...
-  // const session = await auth();
-  // if (!session) { 
-  //   try {
-  //     redirect("/"); 
-  //   }
-  //   catch (e) {
-  //     console.log("redirecting to /login");
-  //   }
-  // }
-  
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={news_cycle.className + " tracking-wide"}>{children}</body>
     </html>
   )
 }
