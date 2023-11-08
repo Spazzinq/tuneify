@@ -13,20 +13,23 @@ export default function Diary() {
   return (
     <main>
       <Navbar profileImageUrl={''}></Navbar>
-      <div className="flex">
-        <Image src={""} alt={""} width='200' height='200' className="rounded-lg mb-4 mr-8" />
-        <div> 
-            <h1 className="text-3xl font-bold">Album Name</h1>
-            <h2>Artist</h2>
-            <h3>Date of Review</h3>
-            <p> It's good! </p>
+      <div className="flex justify-center flex-col mx-36">
+        <div className="flex">
+          <Image src={""} alt={""} width='200' height='200' className="rounded-lg mb-4 mr-8" />
+          <div className="ml-8"> 
+              <h1 className="text-5xl font-bold">Album Name</h1>
+              <h2 className="text-2xl">Artist</h2>
+              <h3>Date of Review</h3>
+              <p> It's good! </p>
+          </div>
+          <div className="ml-36">
+              <Rating starRating={4}></Rating> 
+          </div>
         </div>
         <div>
-            <Rating starRating={4}></Rating> 
+          <TrackRating num={1} trackName={"trackName"} albumName={"albumName"} starRating={5} review={"Some review..."} />     
         </div>
       </div>
-      <TrackRating num={1} trackName={"trackName"} albumName={"albumName"} starRating={5} review={"Some review..."} />     
-
 
     </main>
   )
