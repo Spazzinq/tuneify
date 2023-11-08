@@ -6,7 +6,7 @@ import TrackLarge from '@/components/track_large';
 import { IconUnkown } from '@/components/icons';
 import Image from 'next/image';
 import Rating from '@/components/rating';
-import Song from '@/components/song';
+import TrackRating from '@/components/trackRating'; 
 
 
 export default function Diary() {
@@ -25,9 +25,7 @@ export default function Diary() {
             <Rating starRating={4}></Rating> 
         </div>
       </div>
-      <Song num={1} name={"Okay"} starRating={4} review={"good"} />
-
-      
+      <TrackRating num={1} trackName={"trackName"} albumName={"albumName"} starRating={5} review={"Some review..."} />     
 
 
     </main>
