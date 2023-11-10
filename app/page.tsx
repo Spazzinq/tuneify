@@ -12,10 +12,10 @@ export default function Home() {
     <main>
       <Navbar profileImageUrl={''}></Navbar>
       <div className="mt-20">
-        <div className="flex justify-center">
-          <Logo logoSize={100} fontSize={7} />
+        <div className="flex justify-center mb-2">
+          <Logo logoSize={70} fontSize={7} />
         </div>
-        <h2 className="text-2xl text-center mb-8">Making music accessible. | Join us for a lifetime of discovery.</h2>
+        <h2 className="text-2xl text-center ml-2 mb-12">Making music accessible. | Join us for a lifetime of discovery.</h2>
         <div className="w-30 flex justify-center mb-32">
           <SpotifyLogin />
         </div>
@@ -28,6 +28,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <footer className="mt-32 mb-10 text-center">Made with love by Team Tuneify.</footer>
     </main>
   )
 }
