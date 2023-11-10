@@ -22,8 +22,8 @@ const Navbar: React.FC<NavbarProps> = async ({ profileImageUrl }) => {
                             <Link href="/protected/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                                 Profile
                             </Link>
-                            <Link href="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                                Journal
+                            <Link href="/protected/diary" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                Diary
                             </Link>
                         </div>
                     </div>
