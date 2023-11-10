@@ -8,21 +8,21 @@ import Image from 'next/image';
 import Rating from '@/components/rating';
 import TrackRating from '@/components/trackRating'; 
 
-
 export default function Diary() {
   return (
     <main>
       <Navbar profileImageUrl={''}></Navbar>
-      <div className="flex justify-center flex-col mx-36">
-        <div className="flex">
-          <Image src={""} alt={""} width='200' height='200' className="rounded-lg mb-4 mr-8" />
-          <div className="ml-8"> 
+      <div className="flex justify-center flex-col mx-36 mt-10">
+        <div className="flex mb-8">
+            <IconUnkown className="rounded-lg aspect-square mb-3"></IconUnkown>
+            {/* <Image src={""} alt={""} width='200' height='200' className="rounded-lg aspect-square mb-3" /> */}
+            <div className="ml-8 mt-7"> 
               <h1 className="text-5xl font-bold">Album Name</h1>
               <h2 className="text-2xl">Artist</h2>
               <h3>Date of Review</h3>
               <p> It's good! </p>
-          </div>
-          <div className="ml-36">
+            </div>
+          <div className="ml-4 mt-11">
               <Rating starRating={4}></Rating> 
           </div>
         </div>
