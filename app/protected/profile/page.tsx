@@ -3,6 +3,7 @@ import Navbar from "@/components/nav";
 import { Key } from "react";
 import ArtistLarge from "@/components/artist_large";
 import TrackLarge from "@/components/track_large";
+import AlbumReview from "@/components/album_review";
 
 export default async function Page() {
     const session = await auth()
@@ -26,6 +27,12 @@ export default async function Page() {
                     )
                 })}
             </section>
+            <div className="my-8 ml-10"> 
+                <h2 className="text-5xl font-bold mb-10">Recent Reviews</h2>
+                <div className="mx-10"> 
+                <AlbumReview albumName="Album Name" artist="Artist" imageUrl="" review="Review ..." reviewDate="00/00/0000" starRating={4}/>
+                </div>
+            </div>
         </main>
     );
 }

@@ -17,10 +17,10 @@ const AlbumReview: React.FC<AlbumReviewProps> = ({ albumName, artist, imageUrl, 
         <div className="flex mb-8">
             {
                 imageUrl == '' ? <IconUnkown className="rounded-lg aspect-square mb-3"></IconUnkown>
-                    : <Image src={imageUrl} alt={name} width='200' height='200' className="rounded-lg aspect-square mb-3" />
+                    : <Image src={imageUrl} alt={albumName} width='200' height='200' className="rounded-lg aspect-square mb-3" />
             }
-            <div className="ml-8 mt-7"> 
-              <h1 className="text-5xl font-bold">{albumName}</h1>
+            <div className="ml-8 mt-8"> 
+              <h1 className="text-3xl font-bold">{albumName}</h1>
               <h2 className="text-2xl">{artist}</h2>
               <h3>{reviewDate}</h3>
               <p> {review} </p>
