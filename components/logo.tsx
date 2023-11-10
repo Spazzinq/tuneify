@@ -15,7 +15,7 @@ const Logo: React.FC<LogoProps> = ({ logoSize, fontSize }) => {
     return (
         <div className="flex">
             <Image src="/icon.svg" alt="Tuneify Logo" width={logoSize} height={logoSize} />
-            <a href="" className={russo.className + " text-white text-" + fontSize + "xl font-bold ml-2 mt-1"}>TUNEIFY</a>
+            <a href="" className={russo.className + " text-white text-" + fontSize + "xl font-bold ml-2 my-auto"}>TUNEIFY</a>
         </div>
     );
 };
