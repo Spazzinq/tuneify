@@ -20,6 +20,7 @@ export const authOptions = {
       if (account) {
         token.id = account.providerAccountId
         token.accessToken = account.access_token
+        token.refreshToken = account.refresh_token
       }
       return token
     },
@@ -27,7 +28,21 @@ export const authOptions = {
       // Send properties to the client, like an access_token from a provider.
       session.user.userId = token.id;
       session.user.accessToken = token.accessToken;
-      
+
+      // Check if access token has expired
+      const currentDate = new Date();
+      const tokenExpirationDate = new Date(token.expires);
+      if (tokenExpirationDate < currentDate) {
+        // Access token has expired, refresh it
+        const refreshedTokens = await SpotifyProvider.refreshAccessToken(
+          process.env.SPOTIFY_CLIENT_ID,
+          process.env.SPOTIFY_CLIENT_SECRET,
+          token.refreshToken
+        );
+        token.accessToken = refreshedTokens.access_token;
+        token.refreshToken = refreshedTokens.refresh_token;
+      }
+
       return session
     },
     async redirect({url, baseUrl}) {
