@@ -2,8 +2,9 @@ import React from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
 import { auth } from '@/auth';
-import Login from './nav_login';
+import LoginNav from './nav_login';
 import Logo from '@/components/logo';
+import { IconUnkown } from './icons';
 
 interface NavbarProps {
     profileImageUrl: string;
@@ -27,9 +28,12 @@ const Navbar: React.FC<NavbarProps> = async ({ profileImageUrl }) => {
                         </div>
                     </div>
                     <div className="flex flex-row">
-                        <Login session={await auth()}></Login>
-                        <Image src={profileImageUrl} alt="Profile Picture" className="h-10 w-10 rounded-full" width={40} height={40} />
-                        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow ml-4">
+                        {
+                            profileImageUrl == '' ? <IconUnkown className="rounded-full mr-2" width="40" height="40" />
+                                : <Image src={profileImageUrl} alt="Profile Picture" className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
+                        }
+                        <LoginNav session={await auth()}></LoginNav>
+                        <button className="bg-white hover:bg-gray-100 text-gray-800 font-bold px-4 rounded">
                             + Log
                         </button>
                     </div>

@@ -23,7 +23,6 @@ const Icon = styled(FaSpotify)`
 `;
 
 const SpotifyLogin = () => (
-    
     <LoginButton onClick={() => signIn('spotify', { callbackUrl: 'http://localhost:3000/protected/profile' })}>
         <Icon size={20} />
         Login using Spotify
