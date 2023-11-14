@@ -9,7 +9,7 @@ interface AlbumProps {
     starRating: number;
 }
 
-const AlbumLarge: React.FC<AlbumProps> = ({ name, imageUrl, starRating }) => {
+const Album: React.FC<AlbumProps> = ({ name, imageUrl, starRating }) => {
     return (
         <div className="relative">
             {
@@ -21,4 +21,4 @@ const AlbumLarge: React.FC<AlbumProps> = ({ name, imageUrl, starRating }) => {
         </div>
     );
 };
-export default AlbumLarge;
+export default Album;
