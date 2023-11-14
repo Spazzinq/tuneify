@@ -1,10 +1,8 @@
 import Navbar from '@/components/nav';
-import { IconUnkown } from '@/components/icons';
-import Rating from '@/components/rating';
 import TrackRating from '@/components/trackRating'; 
 import AlbumReview from '@/components/album_review';
 
-export default function Diary() {
+export default function Entry() {
   return (
     <main>
       <Navbar profileImageUrl={''}></Navbar>
