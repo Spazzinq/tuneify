@@ -28,3 +28,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+```sql
+CREATE TABLE "public"."User" (
+  id SERIAL PRIMARY KEY NOT NULL,
+  "spotifyId" VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(255),
+  email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE "public"."Review" (
+  id SERIAL PRIMARY KEY NOT NULL,
+  "authorId" INTEGER NOT NULL,
+  "stars" REAL NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+  content TEXT,
+  published BOOLEAN NOT NULL DEFAULT false,
+  FOREIGN KEY ("authorId") REFERENCES "public"."User"(id)
+);
+```
