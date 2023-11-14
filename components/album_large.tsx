@@ -3,14 +3,14 @@ import Image from 'next/image';
 import Rating from './rating';
 import { IconUnkown } from './icons';
 
-interface AlbumProps {
+interface AlbumLargeProps {
     name: string;
     imageUrl: string;
     ranking: number;
     starRating: number;
 }
 
-const AlbumLarge: React.FC<AlbumProps> = ({ name, imageUrl, ranking, starRating }) => {
+const AlbumLarge: React.FC<AlbumLargeProps> = ({ name, imageUrl, ranking, starRating }) => {
     return (
         <div className="relative">
             <h3 className="text-7xl font-bold absolute -left-5 -top-4">{ranking}</h3>
