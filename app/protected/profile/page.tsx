@@ -4,16 +4,19 @@ import { Key } from "react";
 import ArtistLarge from "@/components/artist_large";
 import TrackLarge from "@/components/track_large";
 import AlbumReview from "@/components/album_review";
+import { Session } from "next-auth";
 
 export default async function Page() {
     const session = await auth()
+    const url = session?.user?.image
+    const name = session?.user?.name
 
     const categories = ['artists', 'tracks']
 
     return (
         <main>
-            <Navbar profileImageUrl={session.user.image}></Navbar>
-            <h2 className="text-3xl font-bold text-center mb-4">Welcome, {session.user.name}</h2>
+            <Navbar profileImageUrl={url || ''}></Navbar>
+            <h2 className="text-3xl font-bold text-center mb-4">Welcome, {name}</h2>
             <div className="text-center">{sessionData(session)}</div>
             <section>
                 {categories.map((category) => {
@@ -37,9 +40,9 @@ export default async function Page() {
     );
 }
 
-async function getTop(type: string, session: { user: { accessToken: any; }; }, number: Number) {
-    if (session && session.user) {
-        let token = session.user.accessToken
+async function getTop(type: string, session: Session | null, number: Number) {
+    if (session) {
+        let token = session.accessToken
 
         const response = await fetch("https://api.spotify.com/v1/me/top/" + type + "?limit=" + number, {
             headers: {
@@ -84,7 +87,7 @@ async function parseResponse(type: string, response: Response) {
     return html;
 }
 
-function sessionData(session: { user: any; }) {
+function sessionData(session: Session | null) {
     if (session) {
         const { user } = session;
         if (user) {
@@ -95,7 +98,7 @@ function sessionData(session: { user: any; }) {
                             <li key={key}>
                                 <strong>{key}: </strong>
                                 <span className="font-light">
-                                    {user[key]}
+                                    {user[key as keyof typeof user]}
                                 </span>
                             </li>
                         ))}

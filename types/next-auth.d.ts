@@ -5,10 +5,6 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     accessToken?: string
     error?: string
-    user?: {
-      userId: string
-      accessToken: string
-    }
   }
   interface Account extends NextAuthAccount {
     expires_at: number
@@ -17,12 +13,6 @@ declare module 'next-auth' {
 
 declare module 'next-auth/jwt' {
   interface JWT extends NextAuthJWT {
-    token?: { 
-        id: string
-        accessToken: string
-        refreshToken: string
-        expires: string
-    }
     accessToken?: string
     refreshToken?: string
     accessTokenExpires?: number
