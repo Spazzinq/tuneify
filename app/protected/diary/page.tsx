@@ -1,8 +1,8 @@
 import Navbar from '@/components/nav';
-import Album from '@/components/album';
-import Link from 'next/link';
+import Album from '@/components/album_review_linked';
 
 export default function Diary() {
+  // on this page, fetch all review from user, display all review using reviewID (which will be used to fetch review info from the database in entry page)
   return (
     <main>
       <Navbar profileImageUrl={''}></Navbar>
@@ -12,9 +12,7 @@ export default function Diary() {
           <hr></hr> 
         </div>
         <div className="mx-20">
-          <Link href="/protected/diary/entry">
-            <Album name={"AlbumName"} imageUrl={""} starRating={4}></Album>
-          </Link>
+            <Album name={"AlbumName"} imageUrl={""} starRating={4} reviewId={"test ..."}></Album>
         </div>
       </div>
     </main>
