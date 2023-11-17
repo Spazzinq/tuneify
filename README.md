@@ -46,7 +46,6 @@ CREATE TABLE "public"."user" (
     published BOOLEAN NOT NULL DEFAULT true,
     title VARCHAR(255) NOT NULL,
     stars REAL NOT NULL,
-    imageUrl TEXT NOT NULL,
     content TEXT,
     FOREIGN KEY ("tuneifyId") REFERENCES "public"."user"("tuneifyId"),
     FOREIGN KEY ("spotifyId") REFERENCES "public"."cache"("spotifyId")
@@ -73,4 +72,5 @@ INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('
 INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('4GvEc3ANtPPjt1ZJllr5Zl', 'artist', 'Bazzi', 'https://i.scdn.co/image/ab6761610000e5eb2491594c8f731523e085d84a');
 INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('1McMsnEElThX1knmY4oliG', 'artist', 'Olivia Rodrigo', 'https://i.scdn.co/image/ab6761610000e5ebe03a98785f3658f0b6461ec4');
 INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('50JJSqHUf2RQ9xsHs0KMHg', 'artist', 'Jon Bellion', 'https://i.scdn.co/image/ab6761610000e5ebe0c2c39a5bc940f905aa02f3');
+INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('3WGpXCj9YhhfX11TToZcXP', 'artist', 'Troye Sivan', 'https://i.scdn.co/image/ab6761610000e5eb26e8cb3ff6fc7744b312811b');
 ```

@@ -4,15 +4,31 @@ import ArtistLarge from '@/components/artist_large';
 import Image from 'next/image'
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
-//import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
-//const prisma = new PrismaClient()
+const prisma = new PrismaClient()
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
+
+async function getRecentlyReviewed() {
+  const cache = await prisma.cache.findMany({
+    take: 5,
+  })
+
+  let html = cache.map((item, index) => {
+    // console.log(item.imageUrl)
+    return (
+      <ArtistLarge name={item.name ?? ''} imageUrl={item.imageUrl ?? ''} ranking={index + 1} starRating={-1} />
+    );
+  })
+
+  prisma.$disconnect()
+
+  return html;
+}
+
+
 export default async function Home() {
-  //const allUsers = await prisma.cache.findMany()
-  //console.log(allUsers)
-  
   return (
     <main>
       <Navbar profileImageUrl={''}></Navbar>
@@ -21,15 +37,15 @@ export default async function Home() {
           <Logo logoSize={70} fontSize={7} />
         </div>
         <h2 className="text-2xl text-center ml-2 mb-12">Making music accessible. | Join us for a lifetime of discovery.</h2>
-        <div className="w-30 flex justify-center mb-32">
+        <div className="w-30 flex justify-center mb-24">
           <SpotifyButton />
         </div>
         <div className="container ml-10">
-          <h2 className={russo.className + " text-5xl font-bold mb-10"}>Most Reviewed</h2>
-          <div className="grid grid-cols-3 ml-10">
-            <ArtistLarge name="Taylor Swift" imageUrl="" ranking={1} starRating={3} />
-            <ArtistLarge name="Conan Gray" imageUrl="" ranking={2} starRating={4.5} />
-            <ArtistLarge name="Bazzi" imageUrl="" ranking={3} starRating={3} />
+          <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed</h2>
+          <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
+            {
+              // getRecentlyReviewed()
+            }
           </div>
         </div>
       </div>

@@ -19,7 +19,9 @@ const AlbumLarge: React.FC<AlbumLargeProps> = ({ name, imageUrl, ranking, starRa
                     : <Image src={imageUrl} alt={name} width='200' height='200' className="rounded-lg aspect-square mb-3" />
             }
             <h3 className="text-left text-xl font-bold mb-1">{name}</h3>
-            <Rating starRating={starRating} />
+            {
+                starRating != 0 ? <Rating starRating={starRating} /> : <></>
+            }
         </div>
     );
 };

@@ -23,7 +23,7 @@ export default async function Page() {
                     return (
                         <div key={category} className="my-8 ml-10">
                             <h2 className="text-5xl font-bold mb-4">{('Top ' + category[0].toUpperCase() + category.substring(1))}</h2>
-                            <div className="flex flex-row gap-20 ml-10 mr-20 my-12">
+                            <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
                                 {getTop(category, session, 5)}
                             </div>
                         </div>

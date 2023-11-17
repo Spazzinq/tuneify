@@ -15,7 +15,7 @@ const Rating: React.FC<RatingProps> = ({ starRating }) => {
     const percentage = FIVE_STAR_REM_LENGTH * (starRating / MAX_RATING);
 
     return (
-        <div className="flex flex-row relative" onClick={() => { console.log("test") }}>
+        <div className="flex flex-row relative">
             {/* Create an array based on the max rating, render a star for each */}
             {Array.from(Array(MAX_RATING).keys()).map((_, i) => (
                 <IconStar key={String(i)} className="flex w-18 mr-0.5 text-orange-300" />
