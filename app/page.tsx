@@ -4,14 +4,14 @@ import ArtistLarge from '@/components/artist_large';
 import Image from 'next/image'
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
-import { PrismaClient } from '@prisma/client'
+//import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+//const prisma = new PrismaClient()
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
 export default async function Home() {
-  const allUsers = await prisma.cache.findMany()
-  console.log(allUsers)
+  //const allUsers = await prisma.cache.findMany()
+  //console.log(allUsers)
   
   return (
     <main>
