@@ -16,8 +16,8 @@ export default async function Page() {
     return (
         <main>
             <Navbar profileImageUrl={url || ''}></Navbar>
-            <h2 className="text-3xl font-bold text-center mb-4">Welcome, {name}</h2>
-            <div className="text-center">{sessionData(session)}</div>
+            {/* <h2 className="text-2xl font-bold text-center mb-4">Welcome, {name}!</h2> */}
+            {/* <div className="text-center">{sessionData(session)}</div> */}
             <section>
                 {categories.map((category) => {
                     return (

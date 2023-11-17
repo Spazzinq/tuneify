@@ -1,12 +1,41 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model cache {
+  id        Int     @id @default(autoincrement())
+  spotifyId String  @unique @db.VarChar(255)
+  type      String  @db.VarChar(255)
+  name      String? @db.VarChar(255)
+  imageUrl  String
+  review    review?
+}
+
+model review {
+  id        Int      @id @default(autoincrement())
+  tuneifyId Int
+  spotifyId String   @unique @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  published Boolean  @default(true)
+  title     String   @db.VarChar(255)
+  stars     Float    @db.Real
+  imageurl  String
+  content   String?
+  cache     cache    @relation(fields: [spotifyId], references: [spotifyId], onDelete: NoAction, onUpdate: NoAction)
+  user      user     @relation(fields: [tuneifyId], references: [tuneifyId], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user {
+  tuneifyId     Int      @id @default(autoincrement())
+  userSpotifyId String   @unique @db.VarChar(255)
+  createdAt     DateTime @default(now()) @db.Timestamp(6)
+  name          String?  @db.VarChar(255)
+  email         String   @unique @db.VarChar(255)
+  review        review[]
 }
