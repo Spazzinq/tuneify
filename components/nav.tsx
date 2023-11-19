@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
 import { auth } from '@/auth';
@@ -12,6 +12,8 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = async ({ profileImageUrl }) => {
+    const session = await auth()
+
     return (
         <nav className="bg-gray-800 mb-6">
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -30,11 +32,10 @@ const Navbar: React.FC<NavbarProps> = async ({ profileImageUrl }) => {
                         </div>
                     </div>
                     <div className="flex flex-row">
-                        {
-                            profileImageUrl == '' ? <IconUnkown className="rounded-full mr-2" width="40" height="40" />
-                                : <Image src={profileImageUrl} alt="Profile Picture" className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
-                        }
-                        <LoginNav session={await auth()}></LoginNav>
+                        <Suspense fallback={<IconUnkown className="rounded-full mr-2" width="40" height="40" />}>
+                            <Image src={session?.user?.image ?? ''} alt="Profile Picture" className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
+                        </Suspense>
+                        <LoginNav session={session}></LoginNav>
                         <button className="bg-white hover:bg-gray-100 text-gray-800 font-bold px-4 rounded">
                             + Review
                         </button>

@@ -25,7 +25,6 @@ model review {
   published Boolean  @default(true)
   title     String   @db.VarChar(255)
   stars     Float    @db.Real
-  imageurl  String
   content   String?
   cache     cache    @relation(fields: [spotifyId], references: [spotifyId], onDelete: NoAction, onUpdate: NoAction)
   user      user     @relation(fields: [tuneifyId], references: [tuneifyId], onDelete: NoAction, onUpdate: NoAction)
@@ -37,5 +36,6 @@ model user {
   createdAt     DateTime @default(now()) @db.Timestamp(6)
   name          String?  @db.VarChar(255)
   email         String   @unique @db.VarChar(255)
+  imageUrl      String
   review        review[]
 }

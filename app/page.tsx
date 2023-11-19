@@ -4,11 +4,9 @@ import ArtistLarge from '@/components/artist_large';
 import Image from 'next/image'
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
-import { PrismaClient } from '@prisma/client'
+import prisma from "@/db";
 
-const prisma = new PrismaClient()
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
-
 
 async function getRecentlyReviewed() {
   const cache = await prisma.cache.findMany({
@@ -18,12 +16,10 @@ async function getRecentlyReviewed() {
   let html = cache.map((item, index) => {
     // console.log(item.imageUrl)
     return (
-      <ArtistLarge name={item.name ?? ''} imageUrl={item.imageUrl ?? ''} ranking={index + 1} starRating={-1} />
+      <ArtistLarge spotifyId={item.spotifyId} name={item.name ?? ''} imageUrl={item.imageUrl ?? ''} ranking={index + 1} starRating={-1} />
     );
   })
-
-  prisma.$disconnect()
-
+  
   return html;
 }
 
@@ -43,9 +39,7 @@ export default async function Home() {
         <div className="container ml-10">
           <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed</h2>
           <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
-            {
-              // getRecentlyReviewed()
-            }
+            { await getRecentlyReviewed() }
           </div>
         </div>
       </div>

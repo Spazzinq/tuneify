@@ -35,7 +35,8 @@ CREATE TABLE "public"."user" (
   "userSpotifyId" VARCHAR(255) UNIQUE NOT NULL,
   "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
   name VARCHAR(255),
-  email VARCHAR(255) UNIQUE NOT NULL
+  email VARCHAR(255) UNIQUE NOT NULL,
+  "imageUrl" TEXT NOT NULL
 );
 
   CREATE TABLE "public"."review" (

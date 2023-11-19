@@ -5,6 +5,12 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     accessToken?: string
     error?: string
+    user?: {
+      id: string
+      name: string
+      email: string
+      image: string
+    }
   }
   interface Account extends NextAuthAccount {
     expires_at: number
