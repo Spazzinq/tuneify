@@ -3,7 +3,7 @@ import Navbar from "@/components/nav";
 import { JSX, Key, Suspense } from "react";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
-import AlbumReview from "@/components/album_review";
+import BoxHoriz from "@/components/box_horiz";
 import { Session } from "next-auth";
 import { redirect } from "next/navigation";
 import { createUser } from "@/db";
@@ -31,7 +31,7 @@ export default async function Page() {
             <div className="my-8 ml-10">
                 <h2 className="text-5xl font-bold mb-10">Recent Reviews</h2>
                 <div className="mx-10">
-                    <AlbumReview albumName="Album Name" artist="Artist" imageUrl="" review="Review ..." reviewDate="00/00/0000" starRating={4} />
+                    <BoxHoriz spotifyId={""} title="Album Name" subtitle="Artist" imageUrl="" review="Review ..." date="00/00/0000" starRating={4} />
                 </div>
             </div>
         </main>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Rating from './rating';
+import CustomRating from './rating';
 import { IconUnkown } from './icons';
 
 interface UserReviewProps {
@@ -24,7 +24,7 @@ const UserReview: React.FC<UserReviewProps> = ({ userName, imageUrl, review, rev
               <p> {review} </p>
             </div>
           <div className="ml-4 mt-4">
-              <Rating starRating={starRating}></Rating> 
+              <CustomRating starRating={starRating}></CustomRating> 
           </div>
         </div>
     );

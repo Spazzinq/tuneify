@@ -1,7 +1,7 @@
 'use client'
 
 import Navbar from '@/components/nav';
-import AlbumReview from '@/components/album_review';
+import BoxHoriz from '@/components/box_horiz';
 import UserReview from '@/components/user_review';
 import { useSearchParams } from 'next/navigation'
 
@@ -12,7 +12,7 @@ export default function Entry() {
     <main>
       <Navbar profileImageUrl={''}></Navbar>
       <div className="flex justify-center flex-col mx-36 mt-10">
-        <AlbumReview albumName="Album Name" artist="Artist" imageUrl="" review={"Review ..."} reviewDate="00/00/0000" starRating={4}/>
+        <BoxHoriz title="Album Name" subtitle="Artist" imageUrl="" review={"Review ..."} date="00/00/0000" starRating={4}/>
         <UserReview userName="User Name" imageUrl="" review={"Review ..."} reviewDate="00/00/0000" starRating={4.5}/> 
       </div>
 

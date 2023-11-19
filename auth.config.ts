@@ -5,7 +5,7 @@ import { JWT } from "next-auth/jwt";
 async function refreshAccessToken(token: JWT): Promise<JWT> {
     // Ensure that the refresh token is valid
     if (process.env.SPOTIFY_REFRESH_TOKEN_URL && token.refreshToken) {
-        fetch(process.env.SPOTIFY_REFRESH_TOKEN_URL, {
+        const data = await fetch(process.env.SPOTIFY_REFRESH_TOKEN_URL, {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
@@ -15,18 +15,13 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
                 grant_type: 'refresh_token',
                 refresh_token: token.refreshToken,
             })
-        }).then((res) => res.json()).then((data) => {
-            // console.log(data)
+        }).then((res) => res.json());
 
-            return {
-                ...token,
-                accessToken: data.access_token,
-                accessTokenExpires: Date.now() + data.expires_in * 1000,
-            }
+        return {
+            ...token,
+            accessToken: data.access_token,
+            accessTokenExpires: Date.now() + data.expires_in * 1000,
         }
-        ).catch((err) => {
-            // console.log(err)
-        });
     }
 
     return {
@@ -51,6 +46,8 @@ const authConfig: NextAuthOptions = {
     callbacks: {
         async jwt({ token, account, user }: { token: JWT, account: any, user: User }) {
             // Persist the OAuth access_token to the token right after signin
+            // console.log(token)
+
             if (account && user) {
                 return {
                     accessToken: account.access_token,
@@ -63,9 +60,12 @@ const authConfig: NextAuthOptions = {
             if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
                 return token
             }
-            
+
+            const newToken = await refreshAccessToken(token)
+            // console.log(newToken)
+
             // Produce new token if the current one has expired
-            return await refreshAccessToken(token)
+            return newToken
         },
         async session({ session, token }: { session: Session, token: JWT }) {
             // console.log("Session Callback")

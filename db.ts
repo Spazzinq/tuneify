@@ -82,10 +82,6 @@ export async function getFromCache(spotifyId: string) {
       return cacheItem;
   } catch (error) {
       console.error("Error finding cache item:", error);
-      
-      const session = await auth();
-
-      
   }
 }
 

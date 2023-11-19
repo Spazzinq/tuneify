@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
-import Rating from './rating';
+import CustomRating from './rating';
 import Track from './track';
 
 interface TrackRatingProps {
@@ -17,7 +17,7 @@ const TrackRating: React.FC<TrackRatingProps> = ({ num, trackName, albumName, st
             <h1 className="mt-6 mr-5">{num}</h1>
             <Track trackName={trackName} imageUrl={""} albumName={albumName}/>
             <div className="flex flex-col ml-6">
-                <Rating starRating={starRating} />
+                <CustomRating starRating={starRating} />
                 <p>{review}</p>
             </div>
         </div>

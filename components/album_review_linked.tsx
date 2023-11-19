@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Rating from './rating';
+import CustomRating from './rating';
 import { IconUnkown } from './icons';
 import Link from 'next/link';
 
@@ -23,7 +23,7 @@ const Album: React.FC<AlbumProps> = ({ name, imageUrl, starRating, reviewId }) =
                         : <Image src={imageUrl} alt={name} width='150' height='150' className="rounded-lg aspect-square mb-3" />
                 }
                 <h3 className="text-left text-xl font-bold mb-1">{name}</h3>
-                <Rating starRating={starRating} />
+                <CustomRating starRating={starRating} />
             </div>
         </ Link>
     );
