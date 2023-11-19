@@ -1,33 +1,43 @@
 import SpotifyButton from '../components/login';
 import Navbar from '@/components/nav';
-import ArtistLarge from '@/components/artist_large';
+import BoxOneLine from '@/components/box_one_line';
 import Image from 'next/image'
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
 import prisma from "@/db";
+import { auth } from '@/auth';
 
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
-async function getRecentlyReviewed() {
+async function getRecentlyReviewed(type: string) {
   const cache = await prisma.cache.findMany({
+    where: {
+      type: type,
+    },
     take: 5,
   })
 
-  let html = cache.map((item, index) => {
-    // console.log(item.imageUrl)
+  let html = cache.map((item) => {
     return (
-      <ArtistLarge spotifyId={item.spotifyId} name={item.name ?? ''} imageUrl={item.imageUrl ?? ''} ranking={index + 1} starRating={-1} />
+      <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.name ?? ''} imageUrl={item.imageUrl ?? ''} />
     );
   })
-  
-  return html;
+
+  return (
+    <>
+      <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed {type.charAt(0).toUpperCase() + type.substring(1)}</h2>
+      <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
+        {html}
+      </div>
+    </>
+  );
 }
 
 
 export default async function Home() {
   return (
     <main>
-      <Navbar profileImageUrl={''}></Navbar>
+      <Navbar session={await auth()}></Navbar>
       <div className="mt-20">
         <div className="flex justify-center mb-2">
           <Logo logoSize={70} fontSize={7} />
@@ -37,10 +47,8 @@ export default async function Home() {
           <SpotifyButton />
         </div>
         <div className="container ml-10">
-          <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed</h2>
-          <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
-            { await getRecentlyReviewed() }
-          </div>
+          {await getRecentlyReviewed('artist')}
+          {await getRecentlyReviewed('track')}
         </div>
       </div>
       <footer className="mt-32 mb-10 text-center">Made with love by Team Tuneify.</footer>

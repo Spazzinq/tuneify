@@ -1,12 +1,13 @@
 import { auth } from "@/auth";
 import Navbar from "@/components/nav";
 import { JSX, Key, Suspense } from "react";
-import ArtistLarge from "@/components/artist_large";
-import TrackLarge from "@/components/track_large";
+import BoxOneLine from "@/components/box_one_line";
+import BoxTwoLine from "@/components/box_two_line";
 import AlbumReview from "@/components/album_review";
 import { Session } from "next-auth";
 import { redirect } from "next/navigation";
 import { createUser } from "@/db";
+import { signIn } from "next-auth/react";
 
 export default async function Page() {
     const session = await auth()
@@ -18,14 +19,11 @@ export default async function Page() {
 
     if (url && name && id && email) {
         createUser(url, name, id, email)
-        // console.log(session)
-    } else {
-        redirect('/')
     }
 
     return (
         <main>
-            <Navbar profileImageUrl={url}></Navbar>
+            <Navbar session={session}></Navbar>
             <section>
                 {await getTop('artists', session, 5)}
                 {await getTop('tracks', session, 5)}
@@ -73,21 +71,13 @@ async function parseResponse(type: string, response: Response): Promise<JSX.Elem
 
     if (type === 'artists') {
         return data.items.map((item: { id: string, name: string; images: { url: string; }[]; }, index: Key | null | undefined) => {
-            // html.push(
-            return <ArtistLarge key={item.id} spotifyId={item.id} name={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={0} />
-            // );
+            return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={0.01} />
         });
     } else if (type === 'tracks') {
-        return data.items.map((track: { album: any; id: Key | null | undefined; name: string; }) => {
+        return data.items.map((track: { album: any; id: string; name: string; }) => {
             let album = track.album
 
-            // console.log(album)
-            // console.log(album.name)
-            // console.log(album.images[0].url)
-
-            // html.push(
-            return <TrackLarge key={track.id} albumName={album.name} trackName={track.name} imageUrl={album.images[0].url} starRating={1} />
-            // );
+            return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={album.name} imageUrl={album.images[0].url} starRating={0.01} />
         });
     }
 
