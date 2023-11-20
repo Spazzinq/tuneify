@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import CustomRating from './rating';
-import { IconUnkown } from './icons';
+import CustomRating from '@/components/rating';
 import EditIcon from '@mui/icons-material/Edit';
 
 interface BoxHorizProps {

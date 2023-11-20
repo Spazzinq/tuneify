@@ -3,11 +3,8 @@ import Navbar from "@/components/nav";
 import { JSX, Key, Suspense } from "react";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
-import BoxHoriz from "@/components/box_horiz";
 import { Session } from "next-auth";
-import { redirect } from "next/navigation";
 import { createUser, getFromCache, getFromReview } from "@/db";
-import { signIn } from "next-auth/react";
 import { SpotifyArtist, SpotifyTrack } from "@/spotify";
 
 export default async function Page() {

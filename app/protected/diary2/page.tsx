@@ -1,7 +1,7 @@
-import Navbar from '@/components/nav';
 import { auth } from '@/auth';
 import prisma from '@/db';
 import BoxHoriz from '@/components/box_horiz';
+import Navbar from '@/components/nav';
 
 export async function getReviews(userSpotifyId: string | undefined) {
   if (userSpotifyId) {
