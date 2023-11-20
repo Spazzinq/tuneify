@@ -18,8 +18,8 @@ export default async function Page() {
     const id = session?.user?.id
     const email = session?.user?.email
 
-    if (url && name && id && email) {
-        createUser(url, name, id, email)
+    if (name && id && email) {
+        createUser(url || '', name, id, email)
     }
 
     return (
