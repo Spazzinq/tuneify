@@ -19,3 +19,27 @@ export default async function Diary() {
     </main>
   )
 }
+
+
+export async function getReviews(userSpotifyID: string, type: string) {
+
+  // get tuneifyId given userSpotifyId 
+  const user = await prisma.user.findUnique({
+    where: {
+      userSpotifyId: userSpotifyID,
+    }
+  });
+
+  // retrieve reviews with unique tuneifyId
+  if (user) { 
+    const allReviews = await prisma.review.findMany({
+      where: {
+        tuneifyId: user.tuneifyId
+      },
+      take: 32
+    })
+
+    return allReviews;
+  }
+}
+
