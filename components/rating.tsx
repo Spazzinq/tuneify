@@ -22,7 +22,7 @@ const CustomRating: React.FC<RatingProps> = ({ spotifyId, type, starRating }) =>
 
     return (
         <div>
-            <Rating className='invert -left-1' name="simple-controlled"
+            <Rating className='hue-rotate-90 invert -left-1' name="simple-controlled"
                 value={value} precision={0.5} size="large"
                 onChange={changeRating}
             />
