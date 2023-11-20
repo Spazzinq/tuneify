@@ -32,7 +32,7 @@ export async function getReviews(userSpotifyId: string | undefined) {
 
         if (cacheItem && cacheItem.name) {
           return (
-            <BoxOneLine spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} imageUrl={cacheItem.imageUrl} starRating={review.stars}></BoxOneLine>
+            <BoxOneLine key={cacheItem.spotifyId} spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} imageUrl={cacheItem.imageUrl} starRating={review.stars}></BoxOneLine>
           );
         }
 
