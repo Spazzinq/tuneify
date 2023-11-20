@@ -8,6 +8,7 @@ import { Session } from "next-auth";
 import { redirect } from "next/navigation";
 import { createUser } from "@/db";
 import { signIn } from "next-auth/react";
+import { SpotifyArtist, SpotifyTrack } from "@/spotify";
 
 export default async function Page() {
     const session = await auth()
@@ -70,14 +71,14 @@ async function parseResponse(type: string, response: Response): Promise<JSX.Elem
     const data = await response.json();
 
     if (type === 'artists') {
-        return data.items.map((item: { id: string, name: string; images: { url: string; }[]; }, index: Key | null | undefined) => {
+        return data.items.map((item: SpotifyArtist, index: Number) => {
             return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={0.01} />
         });
     } else if (type === 'tracks') {
-        return data.items.map((track: { album: any; id: string; name: string; }) => {
+        return data.items.map((track: SpotifyTrack, index: Number) => {
             let album = track.album
 
-            return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={album.name} imageUrl={album.images[0].url} starRating={0.01} />
+            return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={album.name} imageUrl={album.images[0].url} ranking={Number(index) + 1} starRating={0.01} />
         });
     }
 
