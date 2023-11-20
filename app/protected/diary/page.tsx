@@ -22,7 +22,7 @@ export async function getReviews(userSpotifyId: string) {
     })
 
   // renders html code block
-    let html = allReviews.map(async (review) => {
+    let html = await allReviews.map(async (review) => {
       
       const cacheItem = await prisma.cache.findUnique({
         where: {
