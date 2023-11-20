@@ -36,6 +36,6 @@ model user {
   createdAt     DateTime @default(now()) @db.Timestamp(6)
   name          String?  @db.VarChar(255)
   email         String   @unique @db.VarChar(255)
-  imageUrl      String
+  imageUrl      String?
   review        review[]
 }
