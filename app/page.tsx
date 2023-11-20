@@ -1,4 +1,4 @@
-import SpotifyButton from '@/components/spotifyButton';
+import SpotifyButton from '@/components/spotify_button';
 import Navbar from '@/components/nav';
 import BoxOneLine from '@/components/box_one_line';
 import Logo from '@/components/logo';

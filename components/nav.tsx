@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
-import LoginNav from './signInButton';
+import LoginNav from '@/components/sign_in_button';
 import Logo from '@/components/logo';
 import { Session } from 'next-auth';
 import Searchbar from '@/components/searchbar';

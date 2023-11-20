@@ -1,5 +1,4 @@
 import Navbar from '@/components/nav';
-import Album from '@/components/album_review_linked';
 import { auth } from '@/auth';
 import prisma from '@/db';
 import BoxOneLine from '@/components/box_one_line';

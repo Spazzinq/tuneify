@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { addToCache } from '@/db';
-import CustomRating from './rating';
+import CustomRating from '@/components/rating';
 
 interface BoxOneLineProps {
     spotifyId?: string;

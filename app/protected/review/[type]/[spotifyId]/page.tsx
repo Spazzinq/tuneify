@@ -4,8 +4,6 @@ import Navbar from '@/components/nav';
 import prisma, { getFromCache } from '@/db';
 import { Session } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { SnackbarProvider, enqueueSnackbar } from 'notistack';
-import { title } from 'process';
 
 export default async function Review({ params, searchParams }: { params: { spotifyId: string, type: string }, searchParams: { [key: string]: string | string[] | undefined } }) {
   console.log(params);

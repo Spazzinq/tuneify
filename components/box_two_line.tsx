@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
-import CustomRating from './rating';
+import CustomRating from '@/components/rating';
 import { addToCache } from '@/db';
 
 interface BoxTwoLineProps {
