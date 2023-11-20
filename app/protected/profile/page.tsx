@@ -32,7 +32,7 @@ export default async function Page() {
             <div className="my-8 ml-10">
                 <h2 className="text-5xl font-bold mb-10">Recent Reviews</h2>
                 <div className="mx-10">
-                    <BoxHoriz spotifyId={""} title="Album Name" subtitle="Artist" imageUrl="" review="Review ..." date="00/00/0000" starRating={4} />
+                    <BoxHoriz spotifyId={""} title="Album Name" subtitle="Artist" imageUrl="" review="Review ..." date="00/00/0000" starRating={4} type={""} />
                 </div>
             </div>
         </main>
