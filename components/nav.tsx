@@ -1,12 +1,10 @@
 import React, { Suspense } from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
-import LoginNav from './nav_login';
+import LoginNav from './signInButton';
 import Logo from '@/components/logo';
-import { IconUnkown } from './icons';
-import Searchbar from './searchbar';
 import { Session } from 'next-auth';
-import SearchAppBar from '@/components/search';
+import Searchbar from '@/components/searchbar';
 
 interface NavbarProps {
     session: Session | null
@@ -18,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = async ({ session }) => {
             <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
                 <div className="flex flex-row items-center justify-center h-16 gap-5">
                     <Logo logoSize={40} fontSize={3} className="mr-auto" />
-                    <SearchAppBar />
+                    <Searchbar />
                     <div className="flex">
                         {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                         <Link href="/protected/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">

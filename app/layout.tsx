@@ -5,7 +5,6 @@ import { Russo_One } from 'next/font/google';
 
 // These styles apply to every route in the application
 import './globals.css'
-import Snackbarz from '@/components/snackbar';
 
 const inter = Inter({ subsets: ['latin'] })
 const faustina = Faustina({ subsets: ['latin'] })
@@ -21,7 +20,10 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={news_cycle.className + " tracking-wide"}>{children}</body>
+      <body className={news_cycle.className + " tracking-wide"}>
+        {children}
+        <footer className={news_cycle.className + " mt-32 mb-10 text-center text-white"}>Made with love by Team Tuneify.</footer>
+      </body>
     </html>
   )
 }

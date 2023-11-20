@@ -36,13 +36,13 @@ CREATE TABLE "public"."user" (
   "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
   name VARCHAR(255),
   email VARCHAR(255) UNIQUE NOT NULL,
-  "imageUrl" TEXT NOT NULL
+  "imageUrl" TEXT
 );
 
   CREATE TABLE "public"."review" (
     id SERIAL PRIMARY KEY NOT NULL,
     "tuneifyId" INTEGER NOT NULL,
-    "spotifyId" VARCHAR(255) UNIQUE NOT NULL,
+    "spotifyId" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
     published BOOLEAN NOT NULL DEFAULT true,
     title VARCHAR(255) NOT NULL,

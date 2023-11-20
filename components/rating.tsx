@@ -16,7 +16,7 @@ const CustomRating: React.FC<RatingProps> = ({ spotifyId, type, starRating }) =>
 
     const changeRating = (e: React.ChangeEvent<{}>, newValue: number | null) => {
         setValue(newValue);
-        // Redirect to the new link
+        // Redirect to review
         router.push(`/protected/review/${type}s/${spotifyId}?rating=${newValue}`);
     };
 

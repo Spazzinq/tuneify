@@ -1,7 +1,6 @@
-import SpotifyButton from '../components/login';
+import SpotifyButton from '../components/spotifyButton';
 import Navbar from '@/components/nav';
 import BoxOneLine from '@/components/box_one_line';
-import Image from 'next/image'
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
 import prisma from "@/db";
@@ -51,7 +50,6 @@ export default async function Home() {
           {await getRecentlyReviewed('track')}
         </div>
       </div>
-      <footer className="mt-32 mb-10 text-center">Made with love by Team Tuneify.</footer>
     </main>
   )
 }

@@ -1,5 +1,6 @@
 import { PrismaClient, cache } from '@prisma/client'
 import { auth } from '@/auth'
+import { get } from 'http'
 
 const prismaClientSingleton = () => {
   return new PrismaClient()
@@ -85,3 +86,31 @@ export async function getFromCache(spotifyId: string) {
   }
 }
 
+export async function getTuneifyId(userSpotifyId: string) {
+    try {
+        const userItem = await prisma.user.findUniqueOrThrow({
+            where: {
+                userSpotifyId: userSpotifyId,
+            }
+        });
+    
+        console.log("Cache item found:", userItem);
+        return userItem.tuneifyId;
+    } catch (error) {
+        console.error("Error finding cache item:", error);
+    }
+}
+
+
+export async function getFromReview(userSpotifyId: string, spotifyId: string) {
+  try {
+      return await prisma.review.findFirst({
+          where: {
+              tuneifyId: await getTuneifyId(userSpotifyId),
+              spotifyId: spotifyId,
+          }
+      });
+  } catch (error) {
+      console.error("Error finding review item:", error);
+  }
+}

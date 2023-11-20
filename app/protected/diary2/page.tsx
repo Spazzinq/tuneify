@@ -1,8 +1,7 @@
 import Navbar from '@/components/nav';
-import Album from '@/components/album_review_linked';
 import { auth } from '@/auth';
 import prisma from '@/db';
-import BoxOneLine from '@/components/box_one_line';
+import BoxHoriz from '@/components/box_horiz';
 
 export async function getReviews(userSpotifyId: string | undefined) {
   if (userSpotifyId) {
@@ -23,7 +22,7 @@ export async function getReviews(userSpotifyId: string | undefined) {
       })
 
       // renders html code block
-      let html = await allReviews.map(async (review) => {
+      let html = allReviews.map(async (review) => {
 
         const cacheItem = await prisma.cache.findUnique({
           where: {
@@ -31,9 +30,9 @@ export async function getReviews(userSpotifyId: string | undefined) {
           },
         })
 
-        if (cacheItem && cacheItem.name) {
+        if (cacheItem && cacheItem.name && review.content) {
           return (
-            <BoxOneLine spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} imageUrl={cacheItem.imageUrl} starRating={review.stars}></BoxOneLine>
+            <BoxHoriz spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} subtitle={cacheItem.type.charAt(0).toUpperCase() + cacheItem.type.substring(1)} imageUrl={cacheItem.imageUrl} starRating={review.stars} review={review.content} />
           );
         }
 
@@ -42,7 +41,7 @@ export async function getReviews(userSpotifyId: string | undefined) {
       // returns html 
       return (
         <>
-          <div className="flex flex-row flex-wrap gap-12 ml-10 mr-20 my-12">
+          <div className="grid grid-cols-3 gap-12 ml-10 mr-20 my-12">
             {html}
           </div>
         </>
