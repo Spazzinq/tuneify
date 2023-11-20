@@ -22,16 +22,16 @@ export async function getReviews(userSpotifyId: string) {
     })
 
   // renders html code block
-    let html = allReviews.map((review) => {
+    let html = allReviews.map(async (review) => {
       
-      const user = prisma.cache.findUnique({
+      const cacheItem = await prisma.cache.findUnique({
         where: {
           spotifyId: review.spotifyId
         },
       })
 
       return (
-        <Album name={review.title} imageUrl={user.imageURL} starRating={review.stars} reviewId={review.id}></Album>
+        <Album name={review.title} imageUrl={cacheItem?.imageUrl || ''} starRating={review.stars} reviewId={review.id}></Album>
       );
     })
 
