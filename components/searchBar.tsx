@@ -12,7 +12,7 @@ const Searchbar: React.FC = () => {
         event.preventDefault();
         const query = event.currentTarget.search.value;
         setValue(query);
-        router.push(`/protected/profile`);
+        router.push(`/protected/search?query=${query}`);
     };
 
     return <div className="relative text-gray-600">

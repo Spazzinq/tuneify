@@ -6,6 +6,7 @@ interface SpotifyArtist {
         href: string | null,
         total: number
     },
+    genres: string[],
     href: string,
     id: string,
     images: {
