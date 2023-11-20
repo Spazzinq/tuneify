@@ -2,6 +2,7 @@ import Navbar from '@/components/nav';
 import Album from '@/components/album_review_linked';
 import { auth } from '@/auth';
 import prisma from '@/db';
+import BoxOneLine from '@/components/box_one_line';
 
 export async function getReviews(userSpotifyId: string) {
 
@@ -13,7 +14,7 @@ export async function getReviews(userSpotifyId: string) {
   });
 
   // retrieve reviews with unique tuneifyId
-  if (user) { 
+  if (user) {
     const allReviews = await prisma.review.findMany({
       where: {
         tuneifyId: user.tuneifyId
@@ -21,18 +22,21 @@ export async function getReviews(userSpotifyId: string) {
       take: 32
     })
 
-  // renders html code block
-    let html = allReviews.map((review) => {
-      
-      const user = prisma.cache.findUnique({
+    // renders html code block
+    let html = await allReviews.map(async (review) => {
+
+      const cacheItem = await prisma.cache.findUnique({
         where: {
           spotifyId: review.spotifyId
         },
       })
 
-      return (
-        <Album name={review.title} imageUrl={user.imageURL} starRating={review.stars} reviewId={review.id}></Album>
-      );
+      if (cacheItem) {
+        return (
+          <BoxOneLine spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} imageUrl={cacheItem.imageUrl} starRating={review.stars}></BoxOneLine>
+        );
+      }
+
     })
 
     // returns html 
@@ -46,7 +50,7 @@ export async function getReviews(userSpotifyId: string) {
 
   }
 
-  
+
 }
 
 export default async function Diary() {
@@ -58,11 +62,11 @@ export default async function Diary() {
       <Navbar session={await auth()}></Navbar>
       <div>
         <div className="my-8 mx-10">
-          <h1 className="text-5xl font-bold mb-4">Albums</h1>  
-          <hr></hr> 
+          <h1 className="text-5xl font-bold mb-4">Albums</h1>
+          <hr></hr>
         </div>
         <div className="mx-20">
-            {await getReviews(session?.user?.id)}
+          {await getReviews(session?.user?.id)}
         </div>
       </div>
     </main>
