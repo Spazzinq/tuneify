@@ -4,7 +4,7 @@ import Link from 'next/link';
 import LoginNav from './nav_login';
 import Logo from '@/components/logo';
 import { IconUnkown } from './icons';
-import Searchbar from './search';
+import Searchbar from './searchbar';
 import { Session } from 'next-auth';
 
 interface NavbarProps {
