@@ -29,12 +29,12 @@ export default async function Page() {
                 {await getTop('artists', session, 5)}
                 {await getTop('tracks', session, 5)}
             </section>
-            <div className="my-8 ml-10">
+            {/* <div className="my-8 ml-10">
                 <h2 className="text-5xl font-bold mb-10">Recent Reviews</h2>
                 <div className="mx-10">
                     <BoxHoriz spotifyId={""} type="" title="Album Name" subtitle="Artist" imageUrl="" review="Review ..." date="00/00/0000" starRating={4} />
                 </div>
-            </div>
+            </div> */}
         </main>
     );
 }
@@ -52,7 +52,7 @@ async function getTop(type: string, session: Session | null, number: Number) {
 
         return (
             <div className="my-8 ml-10">
-                <h2 className="text-5xl font-bold mb-4">Top {type.charAt(0).toUpperCase() + type.substring(1)}</h2>
+                <h2 className="text-5xl font-bold mb-4">Your Top {type.charAt(0).toUpperCase() + type.substring(1)}</h2>
                 <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
                     {await parseResponse(type, response)}
                 </div>

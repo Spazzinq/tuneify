@@ -42,7 +42,7 @@ export async function getReviews(userSpotifyId: string) {
     // returns html 
     return (
       <>
-        <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
+        <div className="flex flex-row flex-wrap gap-16 ml-10 mr-20 my-12">
           {html}
         </div>
       </>

@@ -5,6 +5,7 @@ import { Russo_One } from 'next/font/google';
 
 // These styles apply to every route in the application
 import './globals.css'
+import Snackbarz from '@/components/snackbar';
 
 const inter = Inter({ subsets: ['latin'] })
 const faustina = Faustina({ subsets: ['latin'] })

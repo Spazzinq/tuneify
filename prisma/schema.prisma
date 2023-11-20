@@ -9,18 +9,18 @@ datasource db {
 }
 
 model cache {
-  id        Int     @id @default(autoincrement())
-  spotifyId String  @unique @db.VarChar(255)
-  type      String  @db.VarChar(255)
-  name      String? @db.VarChar(255)
+  id        Int      @id @default(autoincrement())
+  spotifyId String   @unique @db.VarChar(255)
+  type      String   @db.VarChar(255)
+  name      String?  @db.VarChar(255)
   imageUrl  String
-  review    review?
+  review    review[]
 }
 
 model review {
   id        Int      @id @default(autoincrement())
   tuneifyId Int
-  spotifyId String   @unique @db.VarChar(255)
+  spotifyId String   @db.VarChar(255)
   createdAt DateTime @default(now()) @db.Timestamp(6)
   published Boolean  @default(true)
   title     String   @db.VarChar(255)
