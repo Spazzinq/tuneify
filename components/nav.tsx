@@ -31,9 +31,6 @@ const Navbar: React.FC<NavbarProps> = async ({ session }) => {
                     <div className="flex flex-row ml-auto">
                         <Image src={session?.user?.image || ''} alt="Profile Picture" placeholder='blur' blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
                         <LoginNav session={session}></LoginNav>
-                        <button className="bg-white hover:bg-gray-100 text-gray-800 font-bold px-4 rounded">
-                            + Review
-                        </button>
                     </div>
                 </div>
             </div>
