@@ -5,6 +5,7 @@ import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
 import { Session } from "next-auth";
 import { SpotifyArtist, SpotifyTrack } from "@/spotify";
+import { redirect } from "next/navigation";
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string } }) {
     const session = await auth()
@@ -19,6 +20,8 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
                 </section>
             </main>
         );
+    } else {
+        redirect('/protected/profile')
     }
 
 
@@ -29,11 +32,14 @@ async function getTop(type: string, session: Session | null, number: Number, que
     if (session) {
         let token = session.accessToken
 
-        const response = await fetch("https://api.spotify.com/v1/search?q=" + query + "&type=" + type + "&limit=" + number, {
+        const response = await fetch("https://api.spotify.com/v1/search?q=" + query.trim().replaceAll(" ", "+") + "&type=" + type + "&limit=" + number, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
+
+        // console.log(query.trim().replaceAll(" ", "+"))
+        // console.log(response)
 
         return (
             <div className="my-8 ml-10">
@@ -58,13 +64,13 @@ async function parseResponse(type: string, response: Response): Promise<JSX.Elem
     if (type === 'artist') {
         return data.artists.items.map((item: SpotifyArtist, index: Number) => {
             console.log(item)
-            return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={0.01} />
+            return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[1]?.url || ''} ranking={Number(index) + 1} starRating={0.01} />
         });
     } else if (type === 'track') {
         return data.tracks.items.map((track: SpotifyTrack, index: Number) => {
             let album = track.album
 
-            return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={album.name} imageUrl={album.images[0].url} ranking={Number(index) + 1} starRating={0.01} />
+            return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={album.name} imageUrl={album.images[1]?.url || ''} ranking={Number(index) + 1} starRating={0.01} />
         });
     }
 
