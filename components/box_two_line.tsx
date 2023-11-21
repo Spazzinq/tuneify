@@ -15,8 +15,8 @@ interface BoxTwoLineProps {
 }
 
 const BoxTwoLine: React.FC<BoxTwoLineProps> = ({ spotifyId, type, title, subtitle, imageUrl, ranking, starRating }) => {
-    const MAX_TITLE_LENGTH = 20;
-    const MAX_SUBTITLE_LENGTH = 24;
+    const MAX_TITLE_LENGTH = 16;
+    const MAX_SUBTITLE_LENGTH = 20;
     const shortTitle = title.length > MAX_TITLE_LENGTH ? title.slice(0, MAX_TITLE_LENGTH) + "..." : title;
     const shortSubtitle = subtitle.length > MAX_SUBTITLE_LENGTH ? subtitle.slice(0, MAX_SUBTITLE_LENGTH) + "..." : subtitle;
 

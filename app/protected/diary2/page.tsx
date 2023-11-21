@@ -61,7 +61,7 @@ async function getReviews(userSpotifyId: string | undefined) {
       // returns html 
       return (
         <>
-          <div className="grid grid-cols-3 gap-12 ml-10 mr-20 my-12">
+          <div className="grid grid-cols-2 gap-12 ml-10 mr-20 my-12">
             {html}
           </div>
         </>

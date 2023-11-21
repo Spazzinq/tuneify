@@ -23,10 +23,12 @@ export default async function Page() {
     return (
         <main>
             <Navbar session={session}></Navbar>
-            <div className="my-8 ml-10">
-                <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Hey there, here are your top artists and tracks!</h2>
-                <h3 className="text-2xl text-center ml-2 mb-12">Tell people what you think of them.</h3>
-            </div>
+            <section>
+                <div className="my-8 ml-10">
+                    <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Here are your top artists and tracks!</h2>
+                    <h3 className="text-2xl text-center ml-2 mb-12">Tell people what you think about them.</h3>
+                </div>
+            </section>
             <section>
                 {await getTop('artists', session, 5)}
                 {await getTop('tracks', session, 5)}
@@ -73,13 +75,13 @@ async function parseResponse(userSpotifyId: string, type: string, response: Resp
     const data = await response.json();
 
     if (type === 'artists') {
-        return data.items?.map(async (item: SpotifyArtist, index: Number) => {
+        return data.items.map(async (item: SpotifyArtist, index: Number) => {
             const reviewItem = await getFromReview(userSpotifyId, item.id);
 
             return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={reviewItem?.stars || 0.01} />
         });
     } else if (type === 'tracks') {
-        return data.items?.map(async (track: SpotifyTrack, index: Number) => {
+        return data.items.map(async (track: SpotifyTrack, index: Number) => {
             const reviewItem = await getFromReview(userSpotifyId, track.id);
 
             return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={track.album.name} imageUrl={track.album.images[0].url} ranking={Number(index) + 1} starRating={reviewItem?.stars || 0.01} />

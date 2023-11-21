@@ -14,7 +14,7 @@ interface BoxOneLineProps {
 }
 
 const BoxOneLine: React.FC<BoxOneLineProps> = async ({ spotifyId, type, title, imageUrl, ranking, starRating }) => {
-    const MAX_TITLE_LENGTH = 20;
+    const MAX_TITLE_LENGTH = 16;
     const shortTitle = title.length > MAX_TITLE_LENGTH ? title.slice(0, MAX_TITLE_LENGTH) + "..." : title;
 
     if (spotifyId) {
