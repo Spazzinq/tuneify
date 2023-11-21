@@ -68,13 +68,13 @@ async function parseResponse(userSpotifyId: string, type: string, response: Resp
     const data = await response.json();
 
     if (type === 'artists') {
-        return data.items.map(async (item: SpotifyArtist, index: Number) => {
+        return data.items?.map(async (item: SpotifyArtist, index: Number) => {
             const reviewItem = await getFromReview(userSpotifyId, item.id);
 
             return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={reviewItem?.stars || 0.01} />
         });
     } else if (type === 'tracks') {
-        return data.items.map(async (track: SpotifyTrack, index: Number) => {
+        return data.items?.map(async (track: SpotifyTrack, index: Number) => {
             const reviewItem = await getFromReview(userSpotifyId, track.id);
 
             return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={track.album.name} imageUrl={track.album.images[0].url} ranking={Number(index) + 1} starRating={reviewItem?.stars || 0.01} />
