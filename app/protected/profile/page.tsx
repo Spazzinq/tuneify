@@ -7,6 +7,7 @@ import { Session } from "next-auth";
 import { createUser, getFromCache, getFromReview } from "@/db";
 import { SpotifyArtist, SpotifyTrack } from "@/spotify";
 
+
 export default async function Page() {
     const session = await auth()
 
@@ -22,6 +23,10 @@ export default async function Page() {
     return (
         <main>
             <Navbar session={session}></Navbar>
+            <div className="my-8 ml-10">
+                <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Hey there, here's your top artists and tracks!</h2>
+                <h3 className="text-2xl text-center ml-2 mb-12">Tell people what you think of them.</h3>
+            </div>
             <section>
                 {await getTop('artists', session, 5)}
                 {await getTop('tracks', session, 5)}
