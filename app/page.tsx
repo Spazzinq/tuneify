@@ -24,8 +24,8 @@ async function getRecentlyReviewed(type: string) {
 
   return (
     <>
-      <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed {type.charAt(0).toUpperCase() + type.substring(1) + "s"}</h2>
-      <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
+      <h2 className={russo.className + " text-4xl font-bold mb-6"}>Recently Reviewed {type.charAt(0).toUpperCase() + type.substring(1) + "s"}</h2>
+      <div className="grid grid-cols-5 gap-6 ml-2 mr-10 mb-12">
         {html}
       </div>
     </>
@@ -45,7 +45,7 @@ export default async function Home() {
         <div className="w-30 flex justify-center mb-24">
           <SpotifyButton />
         </div>
-        <div className="container ml-10">
+        <div className="ml-10">
           {await getRecentlyReviewed('artist')}
           {await getRecentlyReviewed('track')}
         </div>

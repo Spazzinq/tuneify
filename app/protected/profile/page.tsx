@@ -6,7 +6,9 @@ import BoxTwoLine from "@/components/box_two_line";
 import { Session } from "next-auth";
 import { createUser, getFromReview } from "@/db";
 import { SpotifyArtist, SpotifyTrack } from "@/spotify";
+import { Russo_One } from "next/font/google";
 
+const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
 export default async function Page() {
     const session = await auth()
@@ -24,7 +26,7 @@ export default async function Page() {
         <main>
             <Navbar session={session}></Navbar>
             <section>
-                <div className="my-8 ml-10">
+                <div className="mt-10 mb-20 ml-10">
                     <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Here are your top artists and tracks!</h2>
                     <h3 className="text-2xl text-center ml-2 mb-12">Tell people what you think about them.</h3>
                 </div>
@@ -55,9 +57,9 @@ async function getTop(type: string, session: Session | null, number: Number) {
         })
 
         return (
-            <div className="my-8 ml-10">
-                <h2 className="text-5xl font-bold mb-4">Your Top {type.charAt(0).toUpperCase() + type.substring(1)}</h2>
-                <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
+            <div className="mb-8 ml-10">
+                <h2 className={russo.className + " text-4xl font-bold mb-6"}>Your Top {type.charAt(0).toUpperCase() + type.substring(1)}</h2>
+                <div className="flex flex-row gap-14 ml-4 mr-10 mb-6">
                     {await parseResponse(session.user.id, type, response)}
                 </div>
             </div>
