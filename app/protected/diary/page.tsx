@@ -30,7 +30,7 @@ async function getReviews(userSpotifyId: string | undefined) {
       where: {
         userSpotifyId: userSpotifyId
       },
-    });
+    })
 
     // retrieve reviews with unique tuneifyId
     if (user) {

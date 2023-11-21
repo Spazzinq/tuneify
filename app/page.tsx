@@ -41,7 +41,7 @@ export default async function Home() {
         <div className="flex justify-center mb-2">
           <Logo logoSize={70} fontSize={7} />
         </div>
-        <h2 className="text-2xl text-center ml-2 mb-12">Making music accessible. | Join us for a lifetime of discovery.</h2>
+        <h2 className="text-2xl text-center ml-2 mb-12">Making music accessible | Join us for a lifetime of discovery</h2>
         <div className="w-30 flex justify-center mb-24">
           <SpotifyButton />
         </div>
