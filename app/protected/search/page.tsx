@@ -14,8 +14,8 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
             <main>
                 <Navbar session={session}></Navbar>
                 <section>
-                    {await getTop('artist', session, 5, searchParams.query)}
-                    {await getTop('track', session, 5, searchParams.query)}
+                    {await getTop('artist', session, 10, searchParams.query)}
+                    {await getTop('track', session, 10, searchParams.query)}
                 </section>
             </main>
         );
