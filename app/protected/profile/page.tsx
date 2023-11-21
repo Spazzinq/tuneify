@@ -24,7 +24,7 @@ export default async function Page() {
         <main>
             <Navbar session={session}></Navbar>
             <div className="my-8 ml-10">
-                <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Hey there, here's your top artists and tracks!</h2>
+                <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Hey there, here are your top artists and tracks!</h2>
                 <h3 className="text-2xl text-center ml-2 mb-12">Tell people what you think of them.</h3>
             </div>
             <section>
