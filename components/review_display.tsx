@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import Image from 'next/image';
-import { addToCache } from '@/db';
+import { auth } from '@/auth';
+import prisma from '@/db';
 import CustomRating from '@/components/rating';
-import Skeleton from '@mui/material/Skeleton';
+import BoxTwoLine from './box_two_line';
+import CustomRating from '@/components/rating';
