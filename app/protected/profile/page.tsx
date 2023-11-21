@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
 import Navbar from "@/components/nav";
-import { JSX, Key, Suspense } from "react";
+import { JSX } from "react";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
 import { Session } from "next-auth";
-import { createUser, getFromCache, getFromReview } from "@/db";
+import { createUser, getFromReview } from "@/db";
 import { SpotifyArtist, SpotifyTrack } from "@/spotify";
 
 

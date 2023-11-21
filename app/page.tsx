@@ -24,7 +24,7 @@ async function getRecentlyReviewed(type: string) {
 
   return (
     <>
-      <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed {type.charAt(0).toUpperCase() + type.substring(1)}</h2>
+      <h2 className={russo.className + " text-5xl font-bold mb-10"}>Recently Reviewed {type.charAt(0).toUpperCase() + type.substring(1) + "s"}</h2>
       <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
         {html}
       </div>

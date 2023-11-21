@@ -18,7 +18,7 @@ interface BoxHorizProps {
 const BoxHoriz: React.FC<BoxHorizProps> = ({ spotifyId, type, title, subtitle, imageUrl, review, date, starRating, className }) => {
     return (
         <div className={"flex " + className}>
-            <Suspense fallback={<Skeleton variant="rounded" width={200} height={200} />}>
+            <Suspense fallback={<Skeleton animation="wave" variant="rounded" width={200} height={200} className="bg-gray-700" />}>
                 <Image src={imageUrl} alt={title} width='200' height='200' className="rounded-lg aspect-square" />
             </Suspense>
             <div className="flex flex-col justify-center ml-6">
