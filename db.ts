@@ -129,3 +129,28 @@ export async function getTuneifyIdFromSession(session: Session | null) {
         }
     }
   }
+
+export async function getRecentReviews(type: string, limit: number) {
+    const reviews = await prisma.review.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      },
+      where: {
+        cache: {
+          type: type,
+        },
+      },
+      select: {
+        spotifyId: true,
+        cache: {
+          select: {
+            name: true,
+            imageUrl: true,
+          },
+        },
+      },
+      take: limit
+    });
+
+    return reviews;
+}

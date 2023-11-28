@@ -3,46 +3,25 @@ import Navbar from '@/components/nav';
 import BoxOneLine from '@/components/box_one_line';
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
-import prisma from "@/db";
+import prisma, { getRecentReviews } from "@/db";
 import { auth } from '@/auth';
+import BoxGrid from '@/components/grid';
 
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
-async function getRecentlyReviewed(type: string) {
-  const reviews = await prisma.review.findMany({
-    orderBy: {
-      createdAt: 'desc'
-    },
-    where: {
-      cache: {
-        type: type,
-      },
-    },
-    select: {
-      spotifyId: true,
-      cache: {
-        select: {
-          name: true,
-          imageUrl: true,
-        },
-      },
-    },
-    take: 5
-  });
-
-  let html = reviews.map((item) => {
-    return (
-      <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.cache.name ?? ''} imageUrl={item.cache.imageUrl ?? ''} />
-    );
-  })
+async function formatRecentReviews(title: string, type: string, limit: number = 5) {
+  const reviews = await getRecentReviews(type, limit);
 
   return (
-    <>
-      <h2 className={russo.className + " text-4xl font-bold mb-6"}>Recently Reviewed {type.charAt(0).toUpperCase() + type.substring(1) + "s"}</h2>
-      <div className="grid grid-cols-5 gap-6 ml-2 mr-10 mb-12">
-        {html}
-      </div>
-    </>
+    <BoxGrid title={title} limit={limit}>
+      {
+        reviews.map((item) => {
+          return (
+            <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.cache.name ?? ''} imageUrl={item.cache.imageUrl ?? ''} />
+          );
+        })
+      }
+      </BoxGrid>
   );
 }
 
@@ -55,13 +34,13 @@ export default async function Home() {
         <div className="flex justify-center mb-2">
           <Logo logoSize={50} fontSize={5} />
         </div>
-        <h2 className="text-2xl text-center ml-2 mb-12">Making music accessible | Join us for a lifetime of discovery</h2>
+        <h2 className="text-2xl text-center ml-2 mb-12">Tell your friends what&apos;s good. Join us for a lifetime of discovery.</h2>
         <div className="w-30 flex justify-center mb-24">
           <SpotifyButton />
         </div>
         <div className="ml-10">
-          {await getRecentlyReviewed('artist')}
-          {await getRecentlyReviewed('track')}
+            {await formatRecentReviews("Recently Reviewed Artistss", 'artist')}
+            {await formatRecentReviews("Recently Reviewed Tracks", 'track')}
         </div>
       </div>
     </main>
