@@ -1,6 +1,7 @@
 import { PrismaClient, cache } from '@prisma/client'
 import { auth } from '@/auth'
 import { get } from 'http'
+import { Session } from 'next-auth'
 
 const prismaClientSingleton = () => {
   return new PrismaClient()
@@ -114,3 +115,17 @@ export async function getFromReview(userSpotifyId: string, spotifyId: string) {
       console.error("Error finding review item:", error);
   }
 }
+
+export async function getTuneifyIdFromSession(session: Session | null) {
+    if (session && session.user && session.user.id) {
+        const user = await prisma.user.findUnique({
+            where: {
+                userSpotifyId: session.user.id
+            },
+        });
+  
+        if (user) {
+            return user.tuneifyId
+        }
+    }
+  }
