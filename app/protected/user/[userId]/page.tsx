@@ -12,7 +12,7 @@ export default async function Review({ params }: { params: { userId: string } })
       <Navbar session={await auth()}></Navbar>
       <div>
         <div className="my-8 mx-10">
-          <h1 className="text-5xl font-bold mb-4">{await getName(params.userId)}'s Reviews</h1>
+          <h1 className="text-5xl font-bold mb-4">{await getName(params.userId)}&apos;s Reviews</h1>
           <hr></hr>
         </div>
         <div className="mx-20">
