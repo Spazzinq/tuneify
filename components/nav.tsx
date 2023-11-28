@@ -5,7 +5,6 @@ import LoginNav from '@/components/sign_in_button';
 import Logo from '@/components/logo';
 import { Session } from 'next-auth';
 import Searchbar from '@/components/search_bar';
-import NewSearch from './new_search';
 import Profile from '/public/profile.svg';
 
 interface NavbarProps {
