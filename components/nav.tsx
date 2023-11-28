@@ -26,7 +26,10 @@ const Navbar: React.FC<NavbarProps> = async ({ session }) => {
                             Profile
                         </Link>
                         <Link href="/protected/diary" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                            Diary
+                            Diary List
+                        </Link>
+                        <Link href="/protected/diary2" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            Diary Review
                         </Link>
                     </div>
                     <div className="flex flex-row ml-auto">
