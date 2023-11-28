@@ -9,16 +9,30 @@ import { auth } from '@/auth';
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
 async function getRecentlyReviewed(type: string) {
-  const cache = await prisma.cache.findMany({
-    where: {
-      type: type,
+  const reviews = await prisma.review.findMany({
+    orderBy: {
+      createdAt: 'desc'
     },
-    take: 5,
-  })
+    where: {
+      cache: {
+        type: type,
+      },
+    },
+    select: {
+      spotifyId: true,
+      cache: {
+        select: {
+          name: true,
+          imageUrl: true,
+        },
+      },
+    },
+    take: 5
+  });
 
-  let html = cache.map((item) => {
+  let html = reviews.map((item) => {
     return (
-      <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.name ?? ''} imageUrl={item.imageUrl ?? ''} />
+      <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.cache.name ?? ''} imageUrl={item.cache.imageUrl ?? ''} />
     );
   })
 
