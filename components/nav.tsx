@@ -5,6 +5,8 @@ import LoginNav from '@/components/sign_in_button';
 import Logo from '@/components/logo';
 import { Session } from 'next-auth';
 import Searchbar from '@/components/search_bar';
+import NewSearch from './new_search';
+import Profile from '/public/profile.svg';
 
 interface NavbarProps {
     session: Session | null
@@ -17,6 +19,7 @@ const Navbar: React.FC<NavbarProps> = async ({ session }) => {
                 <div className="flex flex-row items-center justify-center h-16 gap-5">
                     <Logo logoSize={40} fontSize={3} className="mr-auto" />
                     <Searchbar />
+                    {/* <NewSearch /> */}
                     <div className="flex">
                         {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                         <Link href="/protected/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -27,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = async ({ session }) => {
                         </Link>
                     </div>
                     <div className="flex flex-row ml-auto">
-                        <Image src={session?.user?.image || ''} alt="Profile Picture" placeholder='blur' blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
+                        <Image src={session?.user?.image || Profile} alt="Profile Picture" placeholder='blur' blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
                         <LoginNav session={session}></LoginNav>
                     </div>
                 </div>

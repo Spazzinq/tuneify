@@ -53,7 +53,7 @@ export default async function Home() {
       <Navbar session={await auth()}></Navbar>
       <div className="mt-20">
         <div className="flex justify-center mb-2">
-          <Logo logoSize={70} fontSize={7} />
+          <Logo logoSize={50} fontSize={5} />
         </div>
         <h2 className="text-2xl text-center ml-2 mb-12">Making music accessible | Join us for a lifetime of discovery</h2>
         <div className="w-30 flex justify-center mb-24">
