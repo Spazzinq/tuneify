@@ -152,8 +152,8 @@ export async function getRecentReviews(type: string, limit: number) {
 }
 
 /**
- * Gets all reviews from the database
- * @param tuneifyId of the user???
+ * Gets all reviews by a user from the database
+ * @param tuneifyId Tuneify ID of the user
  * @returns An array of reviews
  */
 export async function getAllReviews(tuneifyId: number | undefined) {
@@ -170,12 +170,21 @@ export async function getAllReviews(tuneifyId: number | undefined) {
 }
 
 
+/**
+ * Gets Tuneify ID of the current user from the database
+ * @returns Tuneify ID of the current user
+ */
 export async function getCurrentTuneifyId() {
     const session = await auth();
 
     return await getTuneifyId(session);
 }
 
+/**
+ * 
+ * @param session 
+ * @returns 
+ */
 export async function getTuneifyId(session: Session | null | undefined) {
     if (session && session.user && session.user.id) {
         try {
@@ -194,6 +203,11 @@ export async function getTuneifyId(session: Session | null | undefined) {
     }
 }
 
+/**
+ * 
+ * @param spotifyId Spotify ID of the reviewed item
+ * @returns 
+ */
 export async function getTuneifyIdWithReview(spotifyId: string) {
     const session = await auth();
 
@@ -220,6 +234,11 @@ export async function getTuneifyIdWithReview(spotifyId: string) {
     }
 }
 
+/**
+ * Gets the name of the user from the database
+ * @param tuneifyId Tuneify ID of the user
+ * @returns User's name
+ */
 export async function getName(tuneifyId: number | undefined) {
     if (tuneifyId) {
         const user = await prisma.user.findUnique({
