@@ -29,7 +29,6 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
  * @param name Name of the user
  * @param id Spotify ID of the user
  * @param email Email of the user
- * @returns
  */
 export async function createUser(url: string, name: string, id: string, email: string) {
     try {
@@ -98,7 +97,7 @@ export async function addToCache(spotifyId: string, type: string, name: string, 
 /**
  * Gets a cache item from the database
  * @param spotifyId Spotify ID of the item
- * @returns Cache item
+ * @returns A cache item
  */
 export async function getFromCache(spotifyId: string) {
     try {
@@ -118,9 +117,9 @@ export async function getFromCache(spotifyId: string) {
 
 /**
  * Gets a review from the database
- * @param tuneifyId Tuneify ID 
+ * @param tuneifyId Tuneify ID of the user
  * @param spotifyId Spotify ID of reviewed item
- * @returns 
+ * @returns A review item
  */
 export async function getReview(tuneifyId: number | undefined, spotifyId: string) {
     try {
@@ -141,7 +140,7 @@ export async function getReview(tuneifyId: number | undefined, spotifyId: string
  * Gets a number of most recent reviews from the database
  * @param type Type of reviews
  * @param limit Number of reviews to fetch
- * @returns An array of reviews
+ * @returns An array of review items
  */
 export async function getRecentReviews(type: string, limit: number) {
     // Use Prisma to find many recent reviews based on the type of cached item
@@ -201,9 +200,9 @@ export async function getCurrentTuneifyId() {
 }
 
 /**
- * 
- * @param session 
- * @returns 
+ * Gets Tuneify ID of the specified session's user
+ * @param session A session
+ * @returns Tuneify ID of the session's user
  */
 export async function getTuneifyId(session: Session | null | undefined) {
     if (session && session.user && session.user.id) {
@@ -226,9 +225,9 @@ export async function getTuneifyId(session: Session | null | undefined) {
 }
 
 /**
- * 
+ * Gets Tuneify ID and review associated with the specified Spotify ID from the database
  * @param spotifyId Spotify ID of the reviewed item
- * @returns 
+ * @returns A user item with Tuneify ID and reivew
  */
 export async function getTuneifyIdWithReview(spotifyId: string) {
     const session = await auth();
