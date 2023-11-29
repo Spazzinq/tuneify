@@ -1,15 +1,10 @@
 import { auth } from "@/auth";
-import Navbar from "@/components/nav";
-import { JSX } from "react";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
 import { createUser, getReview, getCurrentTuneifyId } from "@/db";
 import { SpotifyArtist, SpotifyTrack, getUserTop } from "@/spotify";
-import { Russo_One } from "next/font/google";
 import Link from "next/link";
 import BoxGrid from "@/components/grid";
-
-const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 
 export default async function Page() {
     const session = await auth()

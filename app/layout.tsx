@@ -1,15 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Faustina, Inter, News_Cycle } from 'next/font/google'
-import { Russo_One } from 'next/font/google';
-
-// These styles apply to every route in the application
-import './globals.css'
+import { News_Cycle } from 'next/font/google'
 import Navbar from '@/components/nav';
 
-const inter = Inter({ subsets: ['latin'] })
-const faustina = Faustina({ subsets: ['latin'] })
-const russo = Russo_One({ subsets: ['latin'], weight: "400" })
 const news_cycle = News_Cycle({ subsets: ['latin'], weight: "700" })
 
 

@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
 import { SpotifyArtist, SpotifyTrack, getSearchTop } from "@/spotify";

@@ -1,28 +1,8 @@
 import SpotifyButton from '@/components/spotify_button';
 import BoxOneLine from '@/components/box_one_line';
 import Logo from '@/components/logo';
-import { Russo_One } from 'next/font/google';
 import { getRecentReviews } from "@/db";
 import BoxGrid from '@/components/grid';
-
-const russo = Russo_One({ subsets: ['latin'], weight: "400" })
-
-async function formatRecentReviews(title: string, type: string, limit: number = 5) {
-  const reviews = await getRecentReviews(type, limit);
-
-  return (
-    <BoxGrid title={title}>
-      {
-        reviews.map((item) => {
-          return (
-            <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.cache.name ?? ''} imageUrl={item.cache.imageUrl ?? ''} />
-          );
-        })
-      }
-    </BoxGrid>
-  );
-}
-
 
 export default async function Home() {
   return (
@@ -42,4 +22,20 @@ export default async function Home() {
       </div>
     </main>
   )
+}
+
+async function formatRecentReviews(title: string, type: string, limit: number = 5) {
+  const reviews = await getRecentReviews(type, limit);
+
+  return (
+    <BoxGrid title={title}>
+      {
+        reviews.map((item) => {
+          return (
+            <BoxOneLine key={item.spotifyId} spotifyId={item.spotifyId} type={type} title={item.cache.name ?? ''} imageUrl={item.cache.imageUrl ?? ''} />
+          );
+        })
+      }
+    </BoxGrid>
+  );
 }

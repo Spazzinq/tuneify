@@ -1,13 +1,12 @@
-import { auth } from '@/auth';
 import BoxHoriz from '@/components/box_horiz';
-import Navbar from '@/components/nav';
 import prisma, { getFromCache, getTuneifyIdWithReview } from '@/db';
-import { Session } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 export default async function Review({ params, searchParams }: { params: { spotifyId: string, type: string }, searchParams: { [key: string]: string | string[] | undefined } }) {
-  // console.log(params);
-
+  /**
+   * Internally defined function to create a review
+   * @param formData Data from the form
+   */
   async function create(formData: FormData) {
     'use server'
 
@@ -50,7 +49,6 @@ export default async function Review({ params, searchParams }: { params: { spoti
     }
   }
 
-
   const data = await getFromCache(params.spotifyId);
 
   if (data) {
@@ -60,7 +58,6 @@ export default async function Review({ params, searchParams }: { params: { spoti
       <main>
         <BoxHoriz spotifyId={data.spotifyId} type={data.type} title={data.name || ''} subtitle={data.type ? (data.type.charAt(0).toUpperCase() + data.type.substring(1)) : ''} imageUrl={data?.imageUrl || ''} className='justify-center -ml-8' starRating={Number(searchParams.rating) || 0} />
         <form action={create} className="flex flex-col mx-32 gap-5">
-          {/* <input type="hidden" value={searchParams.rating} /> */}
           <label htmlFor="title" className="text-3xl">Title</label>
           <textarea required name="title" rows={1} className="block p-2.5 w-full rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Write your thoughts here..." defaultValue={userItem?.review[0]?.title}></textarea>
           <label htmlFor="content" className="text-3xl">Review</label>
