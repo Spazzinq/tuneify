@@ -52,7 +52,7 @@ async function getReviews(tuneifyId: string | undefined) {
 
       if (cacheItem && cacheItem.name && review.content) {
         return (
-          <BoxHoriz key={cacheItem.spotifyId} spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} subtitle={cacheItem.type.charAt(0).toUpperCase() + cacheItem.type.substring(1)} imageUrl={cacheItem.imageUrl} starRating={review.stars} review={review.content} />
+          <BoxHoriz key={cacheItem.spotifyId} spotifyId={cacheItem.spotifyId} type={cacheItem.type} title={cacheItem.name} subtitle={cacheItem.type.charAt(0).toUpperCase() + cacheItem.type.substring(1)} imageUrl={cacheItem.imageUrl} starRating={review.stars} content={review.content} noEdit />
         );
       }
 
