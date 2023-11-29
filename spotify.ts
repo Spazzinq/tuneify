@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 
 /**
- * 
+ * Obtains user's top artists/tracks
  * @param type Get the user's artists or tracks
  * @param session User session
  * @param limit Number of results to return
@@ -13,7 +13,7 @@ export async function getUserTop(type: string, limit: Number = 5) {
 }
 
 /**
- * 
+ * Gets the top matches for search
  * @param type Get the top artists or tracks
  * @param session User session
  * @param limit Number of results to return
@@ -24,6 +24,11 @@ export async function getSearchTop(query: string, type: string, limit: Number = 
     return data;
 }
 
+/**
+ * 
+ * @param query  
+ * @returns 
+ */
 async function querySpotify(query: string) {
     const session = await auth();
 
