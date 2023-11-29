@@ -1,5 +1,6 @@
 import { PrismaClient, cache } from '@prisma/client'
 import { auth } from '@/auth'
+import { Session } from 'next-auth'
 
 const prismaClientSingleton = () => {
     return new PrismaClient()
@@ -118,10 +119,27 @@ export async function getRecentReviews(type: string, limit: number) {
     });
 }
 
+export async function getAllReviews(tuneifyId: number | undefined) {
+    if (tuneifyId) {
+        return await prisma.review.findMany({
+            where: {
+                tuneifyId: tuneifyId,
+            },
+            include: {
+                cache: true,
+            }
+        });
+    }
+}
 
-export async function getTuneifyId() {
+
+export async function getCurrentTuneifyId() {
     const session = await auth();
 
+    return await getTuneifyId(session);
+}
+
+export async function getTuneifyId(session: Session | null | undefined) {
     if (session && session.user && session.user.id) {
         try {
             const user = await prisma.user.findUnique({
