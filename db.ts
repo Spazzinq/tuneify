@@ -53,7 +53,13 @@ export async function createUser(url: string, name: string, id: string, email: s
     }
 }
 
-
+/**
+ * Adds a new cache item to the database
+ * @param spotifyId Spotify ID of the item 
+ * @param type Type of the item
+ * @param name Name of the item
+ * @param imageUrl Link to the item's cover picture 
+ */
 export async function addToCache(spotifyId: string, type: string, name: string, imageUrl: string) {
     try {
         await prisma.cache.upsert({
@@ -78,6 +84,11 @@ export async function addToCache(spotifyId: string, type: string, name: string, 
     }
 }
 
+/**
+ * Gets a cache item from the database
+ * @param spotifyId Spotify ID of the item
+ * @returns Cache item
+ */
 export async function getFromCache(spotifyId: string) {
     try {
         const cacheItem = await prisma.cache.findUniqueOrThrow({
@@ -92,6 +103,12 @@ export async function getFromCache(spotifyId: string) {
     }
 }
 
+/**
+ * Gets a review from the database
+ * @param tuneifyId Tuneify ID 
+ * @param spotifyId Spotify ID of reviewed item
+ * @returns 
+ */
 export async function getReview(tuneifyId: number | undefined, spotifyId: string) {
     try {
         return await prisma.review.findFirst({
@@ -105,6 +122,12 @@ export async function getReview(tuneifyId: number | undefined, spotifyId: string
     }
 }
 
+/**
+ * Gets a number of most recent reviews from the database
+ * @param type Type of reviews
+ * @param limit Number of reviews to fetch
+ * @returns An array of reviews
+ */
 export async function getRecentReviews(type: string, limit: number) {
     return await prisma.review.findMany({
         orderBy: {
@@ -128,6 +151,11 @@ export async function getRecentReviews(type: string, limit: number) {
     });
 }
 
+/**
+ * Gets all reviews from the database
+ * @param tuneifyId of the user???
+ * @returns An array of reviews
+ */
 export async function getAllReviews(tuneifyId: number | undefined) {
     if (tuneifyId) {
         return await prisma.review.findMany({
