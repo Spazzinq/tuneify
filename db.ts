@@ -28,16 +28,18 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
  */
 export async function createUser(url: string, name: string, id: string, email: string) {
     try {
+        //Check if a user with the given Spotify ID and email already exists
         if (await prisma.user.findUnique({
             where: {
                 userSpotifyId: id,
                 email: email
             }
         })) {
+        // If the user already exists, log a message and return
             console.log("User already exists!");
             return;
         }
-
+        // Create a new user in the database using Prisma
         const user = await prisma.user.create({
             data: {
                 userSpotifyId: id,
@@ -46,9 +48,10 @@ export async function createUser(url: string, name: string, id: string, email: s
                 email: email
             }
         });
-
+        // Log a message indicating that the user was successfully created
         console.log("User created:", user);
     } catch (error) {
+        // If an error occurs during user creation, log the error
         console.error("Error creating user:", error);
     }
 }
@@ -62,10 +65,12 @@ export async function createUser(url: string, name: string, id: string, email: s
  */
 export async function addToCache(spotifyId: string, type: string, name: string, imageUrl: string) {
     try {
+        // Use Prisma to upsert (update or insert) a cache item for the specified Spotify user
         await prisma.cache.upsert({
             where: {
                 spotifyId: spotifyId,
             },
+            // Update the existing cache item or create a new one if it doesn't exist
             update: {
                 type: type,
                 name: name,
@@ -80,6 +85,7 @@ export async function addToCache(spotifyId: string, type: string, name: string, 
 
         })
     } catch (error) {
+        // If an error occurs during cache item creation or update, log the error
         console.error("Error creating cache item:", error);
     }
 }
@@ -91,6 +97,7 @@ export async function addToCache(spotifyId: string, type: string, name: string, 
  */
 export async function getFromCache(spotifyId: string) {
     try {
+        // Use Prisma to find a unique cache item for the specified Spotify user or throw an error
         const cacheItem = await prisma.cache.findUniqueOrThrow({
             where: {
                 spotifyId: spotifyId,
@@ -99,6 +106,7 @@ export async function getFromCache(spotifyId: string) {
 
         return cacheItem;
     } catch (error) {
+        // If an error occurs during cache item retrieval, log the error
         console.error("Error finding cache item:", error);
     }
 }
@@ -111,6 +119,7 @@ export async function getFromCache(spotifyId: string) {
  */
 export async function getReview(tuneifyId: number | undefined, spotifyId: string) {
     try {
+        // Use Prisma to find the first review item that matches the Tuneify ID and Spotify ID
         return await prisma.review.findFirst({
             where: {
                 tuneifyId: tuneifyId,
@@ -118,6 +127,7 @@ export async function getReview(tuneifyId: number | undefined, spotifyId: string
             }
         });
     } catch (error) {
+        // If an error occurs during the review item retrieval, log the error
         console.error("Error finding review item:", error);
     }
 }
