@@ -2,18 +2,23 @@ import { PrismaClient, cache } from '@prisma/client'
 import { auth } from '@/auth'
 import { Session } from 'next-auth'
 
+// Function to create a singleton instance of PrismaClient
 const prismaClientSingleton = () => {
     return new PrismaClient()
 }
 
+// Define the type for the PrismaClient singleton
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
 
+// Define a global variable to store the PrismaClient singleton
 const globalForPrisma = globalThis as unknown as {
     prisma: PrismaClientSingleton | undefined
 }
 
+// Use the existing PrismaClient instance if available, or create a new one
 const prisma = globalForPrisma.prisma ?? prismaClientSingleton()
 
+// Export the PrismaClient instance for use in the application
 export default prisma
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
@@ -139,6 +144,7 @@ export async function getReview(tuneifyId: number | undefined, spotifyId: string
  * @returns An array of reviews
  */
 export async function getRecentReviews(type: string, limit: number) {
+    // Use Prisma to find many recent reviews based on the type of cached item
     return await prisma.review.findMany({
         orderBy: {
             createdAt: 'desc'
@@ -168,10 +174,12 @@ export async function getRecentReviews(type: string, limit: number) {
  */
 export async function getAllReviews(tuneifyId: number | undefined) {
     if (tuneifyId) {
+        // Use Prisma to find many reviews associated with the specified Tuneify ID
         return await prisma.review.findMany({
             where: {
                 tuneifyId: tuneifyId,
             },
+            // Include details from the associated cache for each review
             include: {
                 cache: true,
             }
@@ -185,8 +193,10 @@ export async function getAllReviews(tuneifyId: number | undefined) {
  * @returns Tuneify ID of the current user
  */
 export async function getCurrentTuneifyId() {
+    // Authenticate the user and obtain the session information
     const session = await auth();
-
+    
+    // Use the session information to retrieve the Tuneify ID
     return await getTuneifyId(session);
 }
 
@@ -198,16 +208,18 @@ export async function getCurrentTuneifyId() {
 export async function getTuneifyId(session: Session | null | undefined) {
     if (session && session.user && session.user.id) {
         try {
+            // Use Prisma to find a unique user based on the Spotify ID from the session
             const user = await prisma.user.findUnique({
                 where: {
                     userSpotifyId: session.user.id
                 },
             });
-
+            // If the user is found, return the associated Tuneify ID
             if (user) {
                 return user.tuneifyId
             }
         } catch (error) {
+            // If an error occurs during Tuneify ID retrieval, log the error
             console.error("Error finding tuneify id:", error);
         }
     }
@@ -221,8 +233,10 @@ export async function getTuneifyId(session: Session | null | undefined) {
 export async function getTuneifyIdWithReview(spotifyId: string) {
     const session = await auth();
 
+    // Check if session information and user ID are available
     if (session && session.user && session.user.id) {
         try {
+            // Use Prisma to find the first user with the specified Spotify ID and retrieve Tuneify ID and associated reviews
             const userItem = await prisma.user.findFirst({
                 where: {
                     userSpotifyId: session.user.id,
@@ -239,6 +253,7 @@ export async function getTuneifyIdWithReview(spotifyId: string) {
 
             return userItem;
         } catch (error) {
+            // If an error occurs during Tuneify ID and review retrieval, log the error
             console.error("Error finding tuneify id with review:", error);
         }
     }
@@ -251,12 +266,13 @@ export async function getTuneifyIdWithReview(spotifyId: string) {
  */
 export async function getName(tuneifyId: number | undefined) {
     if (tuneifyId) {
+        // Use Prisma to find a unique user based on the Tuneify ID
         const user = await prisma.user.findUnique({
             where: {
                 tuneifyId: tuneifyId
             },
         });
-
+        // If the user is found, return their name
         if (user) {
             return user.name
         }
