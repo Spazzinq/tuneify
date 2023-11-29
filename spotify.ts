@@ -25,9 +25,9 @@ export async function getSearchTop(query: string, type: string, limit: Number = 
 }
 
 /**
- * 
- * @param query  
- * @returns 
+ * Queries spotify
+ * @param query Your query
+ * @returns JSON object
  */
 async function querySpotify(query: string) {
     const session = await auth();
