@@ -10,7 +10,7 @@ interface BoxTwoLineProps {
     spotifyId?: string;
     type: string;
     title: string;
-    imageUrl: string;
+    imageUrl: string | null;
     subtitle: string;
     ranking?: number;
     starRating?: number;
@@ -23,7 +23,9 @@ const BoxTwoLine: React.FC<BoxTwoLineProps> = ({ spotifyId, type, title, subtitl
     const shortSubtitle = subtitle.length > MAX_SUBTITLE_LENGTH ? subtitle.slice(0, MAX_SUBTITLE_LENGTH) + "..." : subtitle;
 
     if (spotifyId) {
-        addToCache(spotifyId, type, title, imageUrl);
+        if (imageUrl) {
+            addToCache(spotifyId, type, title, imageUrl);
+        }
 
         return (
             <div className="relative">
@@ -37,7 +39,7 @@ const BoxTwoLine: React.FC<BoxTwoLineProps> = ({ spotifyId, type, title, subtitl
                     <h2 className="text-left text-xl font-bold">{shortTitle}</h2>
                     <p className="text-left text-sm">{shortSubtitle}</p>
                 </div>
-                {starRating ? <CustomRating spotifyId={spotifyId} type={type} starRating={starRating} /> : <></>}
+                {starRating != undefined ? <CustomRating spotifyId={spotifyId} type={type} starRating={starRating} /> : <></>}
             </div>
         );
     }

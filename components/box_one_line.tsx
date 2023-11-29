@@ -10,7 +10,7 @@ interface BoxOneLineProps {
     spotifyId?: string;
     type: string
     title: string;
-    imageUrl: string;
+    imageUrl: string | null;
     ranking?: number;
     starRating?: number;
 }
@@ -20,7 +20,9 @@ const BoxOneLine: React.FC<BoxOneLineProps> = ({ spotifyId, type, title, imageUr
     const shortTitle = title.length > MAX_TITLE_LENGTH ? title.slice(0, MAX_TITLE_LENGTH) + "..." : title;
 
     if (spotifyId) {
-        addToCache(spotifyId, type, title, imageUrl);
+        if (imageUrl) {
+            addToCache(spotifyId, type, title, imageUrl);
+        }
 
         return (
             <div className="relative">
@@ -34,7 +36,7 @@ const BoxOneLine: React.FC<BoxOneLineProps> = ({ spotifyId, type, title, imageUr
                 </div>
 
                 <h3 className="text-left text-xl font-bold">{shortTitle}</h3>
-                {starRating ? <CustomRating spotifyId={spotifyId} type={type} starRating={starRating} /> : <></>}
+                {starRating != undefined ? <CustomRating spotifyId={spotifyId} type={type} starRating={starRating} /> : <></>}
             </div>
         );
     }

@@ -1,3 +1,28 @@
+import { auth } from "@/auth";
+
+/**
+ * 
+ * @param type Get the top artists or tracks
+ * @param session User session
+ * @param limit Number of results to return
+ * @returns JSON object of top artists or tracks
+ */
+export async function getSpotifyTop(type: string, limit: Number = 5) {
+    const session = await auth();
+
+    if (session && session.user) {
+        let token = session.accessToken
+
+        const response = await fetch("https://api.spotify.com/v1/me/top/" + type + "?limit=" + limit, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return (await response.json()).items;
+    }
+}
+
 interface SpotifyArtist {
     external_urls: {
         spotify: string

@@ -10,7 +10,7 @@ interface BoxHorizProps {
     type: string;
     title: string;
     subtitle?: string;
-    imageUrl: string;
+    imageUrl: string | null;
     review?: string;
     date?: string;
     starRating: number;

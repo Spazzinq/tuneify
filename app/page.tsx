@@ -13,7 +13,7 @@ async function formatRecentReviews(title: string, type: string, limit: number = 
   const reviews = await getRecentReviews(type, limit);
 
   return (
-    <BoxGrid title={title} limit={limit}>
+    <BoxGrid title={title}>
       {
         reviews.map((item) => {
           return (
@@ -21,7 +21,7 @@ async function formatRecentReviews(title: string, type: string, limit: number = 
           );
         })
       }
-      </BoxGrid>
+    </BoxGrid>
   );
 }
 
@@ -39,8 +39,8 @@ export default async function Home() {
           <SpotifyButton />
         </div>
         <div className="ml-10">
-            {await formatRecentReviews("Recently Reviewed Artistss", 'artist')}
-            {await formatRecentReviews("Recently Reviewed Tracks", 'track')}
+          {await formatRecentReviews("Recently Reviewed Artists", 'artist')}
+          {await formatRecentReviews("Recently Reviewed Tracks", 'track')}
         </div>
       </div>
     </main>
