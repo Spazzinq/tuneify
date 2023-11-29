@@ -18,6 +18,14 @@ export default prisma
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
+/**
+ * Creates a user in the database
+ * @param url Link to the user's profile picture
+ * @param name Name of the user
+ * @param id Spotify ID of the user
+ * @param email Email of the user
+ * @returns
+ */
 export async function createUser(url: string, name: string, id: string, email: string) {
     try {
         if (await prisma.user.findUnique({
@@ -44,6 +52,7 @@ export async function createUser(url: string, name: string, id: string, email: s
         console.error("Error creating user:", error);
     }
 }
+
 
 export async function addToCache(spotifyId: string, type: string, name: string, imageUrl: string) {
     try {
