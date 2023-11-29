@@ -25,7 +25,6 @@ async function formatTopQueries(title: string, query: string, type: string, limi
 
     if (type === 'artist') {
         html = data.artists.items.map((item: SpotifyArtist, index: Number) => {
-            console.log(item)
             return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[1]?.url || ''} ranking={Number(index) + 1} starRating={0.01} />
         });
     } else if (type === 'track') {
