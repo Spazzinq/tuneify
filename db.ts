@@ -182,3 +182,17 @@ export async function getTuneifyIdWithReview(spotifyId: string) {
         }
     }
 }
+
+export async function getName(tuneifyId: number | undefined) {
+    if (tuneifyId) {
+        const user = await prisma.user.findUnique({
+            where: {
+                tuneifyId: tuneifyId
+            },
+        });
+
+        if (user) {
+            return user.name
+        }
+    }
+}

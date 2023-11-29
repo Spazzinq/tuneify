@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { getCurrentTuneifyId } from '@/db';
 
 export default async function Diary() {
-  // on this page, fetch all review from user, display all review using reviewID (which will be used to fetch review info from the database in entry page)
   const session = await auth()
 
   return (

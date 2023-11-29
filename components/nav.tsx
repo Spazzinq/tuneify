@@ -6,6 +6,7 @@ import Logo from '@/components/logo';
 import Searchbar from '@/components/search_bar';
 import Profile from '/public/profile.svg';
 import { auth } from '@/auth';
+import { getCurrentTuneifyId } from '@/db';
 
 const Navbar: React.FC = async () => {
     const session = await auth();
@@ -23,10 +24,10 @@ const Navbar: React.FC = async () => {
                             Profile
                         </Link>
                         <Link href="/protected/diary" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                            Diary List
+                            Diary Grid
                         </Link>
-                        <Link href="/protected/diary2" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                            Diary Review
+                        <Link href={"/protected/user/" + await getCurrentTuneifyId()} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            Diary List
                         </Link>
                     </div>
                     <div className="flex flex-row ml-auto">

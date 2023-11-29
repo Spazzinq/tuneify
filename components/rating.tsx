@@ -24,7 +24,7 @@ const CustomRating: React.FC<RatingProps> = ({ spotifyId, type, starRating, noEd
     return (
             <Rating className='hue-rotate-90 invert -left-1' name="simple-controlled"
                 value={value} precision={0.5} size="large"
-                onChange={noEdit ? undefined : changeRating}
+                onChange={changeRating} readOnly={noEdit}
             />
     );
 };
