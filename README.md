@@ -1,34 +1,17 @@
 ## Tuneify is all about making music accessible. Join us on a life-long journey to diversify your music taste.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+This is a [Next.js](https://nextjs.org/) project! You can run the project with the following command:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+After running the command, open [http://localhost:3000](http://localhost:3000) to see the dev implementation.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Environment Setup
+The following commands will be helpful to get your Postgres database off its feet to deploy this project. You will need an `.env` file for Prisma and NextAuth with the following environment variables: `POSTGRES_URL, POSTGRES_PRISMA_URL, POSTGRES_URL_NON_POOLING, POSTGRES_USER, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_DATABASE` and  `SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_SCOPES, SPOTIFY_REFRESH_TOKEN_URL` and finally `NEXTAUTH_URL, NEXTAUTH_SECRET`.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
+### Table Creation Commands
 ```sql
 CREATE TABLE "public"."user" (
   "tuneifyId" SERIAL PRIMARY KEY NOT NULL,
@@ -39,18 +22,18 @@ CREATE TABLE "public"."user" (
   "imageUrl" TEXT
 );
 
-  CREATE TABLE "public"."review" (
-    id SERIAL PRIMARY KEY NOT NULL,
-    "tuneifyId" INTEGER NOT NULL,
-    "spotifyId" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
-    published BOOLEAN NOT NULL DEFAULT true,
-    title VARCHAR(255) NOT NULL,
-    stars REAL NOT NULL,
-    content TEXT,
-    FOREIGN KEY ("tuneifyId") REFERENCES "public"."user"("tuneifyId"),
-    FOREIGN KEY ("spotifyId") REFERENCES "public"."cache"("spotifyId")
-  );
+CREATE TABLE "public"."review" (
+  id SERIAL PRIMARY KEY NOT NULL,
+  "tuneifyId" INTEGER NOT NULL,
+  "spotifyId" VARCHAR(255) NOT NULL,
+  "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+  published BOOLEAN NOT NULL DEFAULT true,
+  title VARCHAR(255) NOT NULL,
+  stars REAL NOT NULL,
+  content TEXT,
+  FOREIGN KEY ("tuneifyId") REFERENCES "public"."user"("tuneifyId"),
+  FOREIGN KEY ("spotifyId") REFERENCES "public"."cache"("spotifyId")
+);
 
 CREATE TABLE "public"."cache" (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -59,16 +42,9 @@ CREATE TABLE "public"."cache" (
   "name" VARCHAR(255),
   "imageUrl" TEXT NOT NULL
 );
-
--- CREATE TABLE "public"."TopArtist" (
---   id SERIAL PRIMARY KEY NOT NULL,
---   name VARCHAR(255) NOT NULL,
---   imageUrl text NOT NULL
--- );
 ```
-
+### Sample Cache Data
 ```sql
-INSERT INTO "public"."Review" ("authorId", "type", stars, title, "imageUrl") values (1, "");
 INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('06HL4z0CvFAxyc27GXpf02', 'artist', 'Taylor Swift', 'https://i.scdn.co/image/ab67616100005174859e4c14fa59296c8649e0e4');
 INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('4GvEc3ANtPPjt1ZJllr5Zl', 'artist', 'Bazzi', 'https://i.scdn.co/image/ab6761610000e5eb2491594c8f731523e085d84a');
 INSERT INTO "public"."cache" ("spotifyId", "type", "name", "imageUrl") values ('1McMsnEElThX1knmY4oliG', 'artist', 'Olivia Rodrigo', 'https://i.scdn.co/image/ab6761610000e5ebe03a98785f3658f0b6461ec4');
