@@ -18,7 +18,14 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
         redirect('/protected/profile')
     }
 }
-
+/**
+ * Format top search queries
+ * @param title Title of the section
+ * @param query Query to search
+ * @param type Type of query ('artists' or 'tracks)
+ * @param limit Number of results to display
+ * @returns HTML code displaying the top queries of the specified type
+ */
 async function formatTopQueries(title: string, query: string, type: string, limit: Number = 5) {
     const data = await getSearchTop(query, type, limit);
     let html = <></>;

@@ -29,6 +29,10 @@ export default async function Diary() {
   )
 }
 
+/**
+ * Format user's reviews
+ * @returns HTML code displaying user's review
+ */
 async function formatReviews() {
   const allReviews = await getAllReviews(await getCurrentTuneifyId());
   let html;

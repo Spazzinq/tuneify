@@ -23,6 +23,11 @@ export default async function Review({ params }: { params: { userId: string } })
   )
 }
 
+/**
+ * Format all reviews by a user
+ * @param tuneifyId Tuneify ID of a user
+ * @returns HTML code displaying all reviews by a user
+ */
 async function formatReviews(tuneifyId: number | undefined) {
   if (tuneifyId) {
     const allReviews = await getAllReviews(tuneifyId);

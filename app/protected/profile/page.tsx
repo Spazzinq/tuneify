@@ -42,6 +42,12 @@ export default async function Page() {
     );
 }
 
+/**
+ * Format the user's top entries of the specified type
+ * @param title Title of the section
+ * @param type Type of entries ('artists' or 'tracks)
+ * @returns HTML code displaying the user's top entries of the specified type
+ */
 async function formatSpotifyTop(title: string, type: string) {
     const data = await getUserTop(type);
     let html = <></>;

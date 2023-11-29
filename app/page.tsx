@@ -24,6 +24,13 @@ export default async function Home() {
   )
 }
 
+/**
+ * Format most recent reviewed items
+ * @param title Title of the section
+ * @param type Type of the item reviewed
+ * @param limit Number of reviews to display
+ * @returns HTML code displaying the most recent reviewed items on Tuneify
+ */
 async function formatRecentReviews(title: string, type: string, limit: number = 5) {
   const reviews = await getRecentReviews(type, limit);
 
