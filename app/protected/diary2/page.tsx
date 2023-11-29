@@ -9,7 +9,6 @@ export default async function Diary() {
 
   return (
     <main>
-      <Navbar session={await auth()}></Navbar>
       <div>
         <div className="my-8 mx-10">
           <h1 className="text-5xl font-bold mb-4">Your Reviews</h1>

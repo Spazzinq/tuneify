@@ -1,15 +1,10 @@
-import { auth } from '@/auth';
 import BoxHoriz from '@/components/box_horiz';
-import Navbar from '@/components/nav';
-import prisma, { getFromCache } from '@/db';
-import { Session } from 'next-auth';
-import { redirect } from 'next/navigation';
+import prisma from '@/db';
 
 export default async function Review({ params }: { params: { userId: string } }) {
 
   return (
     <main>
-      <Navbar session={await auth()}></Navbar>
       <div>
         <div className="my-8 mx-10">
           <h1 className="text-5xl font-bold mb-4">{await getName(params.userId)}&apos;s Reviews</h1>

@@ -1,10 +1,8 @@
 import SpotifyButton from '@/components/spotify_button';
-import Navbar from '@/components/nav';
 import BoxOneLine from '@/components/box_one_line';
 import Logo from '@/components/logo';
 import { Russo_One } from 'next/font/google';
-import prisma, { getRecentReviews } from "@/db";
-import { auth } from '@/auth';
+import { getRecentReviews } from "@/db";
 import BoxGrid from '@/components/grid';
 
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })
@@ -29,7 +27,6 @@ async function formatRecentReviews(title: string, type: string, limit: number = 
 export default async function Home() {
   return (
     <main>
-      <Navbar session={await auth()}></Navbar>
       <div className="mt-20">
         <div className="flex justify-center mb-2">
           <Logo logoSize={50} fontSize={5} />

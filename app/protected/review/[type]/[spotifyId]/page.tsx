@@ -58,7 +58,6 @@ export default async function Review({ params, searchParams }: { params: { spoti
 
     return (
       <main>
-        <Navbar session={await auth()}></Navbar>
         <BoxHoriz spotifyId={data.spotifyId} type={data.type} title={data.name || ''} subtitle={data.type ? (data.type.charAt(0).toUpperCase() + data.type.substring(1)) : ''} imageUrl={data?.imageUrl || ''} className='justify-center -ml-8' starRating={Number(searchParams.rating) || 0} />
         <form action={create} className="flex flex-col mx-32 gap-5">
           {/* <input type="hidden" value={searchParams.rating} /> */}

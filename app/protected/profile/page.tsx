@@ -3,9 +3,8 @@ import Navbar from "@/components/nav";
 import { JSX } from "react";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
-import { Session } from "next-auth";
-import prisma, { createUser, getReview, getTuneifyId } from "@/db";
-import { SpotifyArtist, SpotifyTrack, getSpotifyTop } from "@/spotify";
+import { createUser, getReview, getTuneifyId } from "@/db";
+import { SpotifyArtist, SpotifyTrack, getUserTop } from "@/spotify";
 import { Russo_One } from "next/font/google";
 import Link from "next/link";
 import BoxGrid from "@/components/grid";
@@ -26,7 +25,6 @@ export default async function Page() {
 
     return (
         <main>
-            <Navbar session={session}></Navbar>
             <section>
                 <div className="mt-10 mb-20 ml-10">
                     <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Here are your top artists and tracks!</h2>
@@ -45,42 +43,31 @@ export default async function Page() {
                 {await formatSpotifyTop("Your Top Artists", 'artists')}
                 {await formatSpotifyTop("Your Top Tracks", 'tracks')}
             </div>
-            {/* <div className="my-8 ml-10">
-                <h2 className="text-5xl font-bold mb-10">Recent Reviews</h2>
-                <div className="mx-10">
-                    <BoxHoriz spotifyId={""} type="" title="Album Name" subtitle="Artist" imageUrl="" review="Review ..." date="00/00/0000" starRating={4} />
-                </div>
-            </div> */}
         </main>
     );
 }
 
-// TODO: Needs refactoring
 async function formatSpotifyTop(title: string, type: string) {
-    return (
-        <BoxGrid title={title}>
-            {await parseResponse(type)}
-        </BoxGrid>
-    );
-}
-
-// TODO: Needs refactoring
-async function parseResponse(type: string): Promise<JSX.Element | undefined> {
-    const data = await getSpotifyTop(type);
+    const data = await getUserTop(type);
+    let html = <></>;
 
     if (type === 'artists') {
-        return data.map(async (item: SpotifyArtist, index: Number) => {
+        html = data.map(async (item: SpotifyArtist, index: Number) => {
             const reviewItem = await getReview(await getTuneifyId(), item.id);
 
             return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[0].url} ranking={Number(index) + 1} starRating={reviewItem?.stars || 0.01} />
         });
     } else if (type === 'tracks') {
-        return data.map(async (track: SpotifyTrack, index: Number) => {
+        html = data.map(async (track: SpotifyTrack, index: Number) => {
             const reviewItem = await getReview(await getTuneifyId(), track.id);
 
             return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={track.album.name} imageUrl={track.album.images[0].url} ranking={Number(index) + 1} starRating={reviewItem?.stars || 0.01} />
         });
     }
 
-    return <></>;
+    return (
+        <BoxGrid title={title}>
+            {html}
+        </BoxGrid>
+    );
 }

@@ -2,24 +2,41 @@ import { auth } from "@/auth";
 
 /**
  * 
+ * @param type Get the user's artists or tracks
+ * @param session User session
+ * @param limit Number of results to return
+ * @returns JSON object of top artists or tracks
+ */
+export async function getUserTop(type: string, limit: Number = 5) {
+    const data = await querySpotify("https://api.spotify.com/v1/me/top/" + type + "?limit=" + limit);
+    return data.items;
+}
+
+/**
+ * 
  * @param type Get the top artists or tracks
  * @param session User session
  * @param limit Number of results to return
  * @returns JSON object of top artists or tracks
  */
-export async function getSpotifyTop(type: string, limit: Number = 5) {
+export async function getSearchTop(query: string, type: string, limit: Number = 5) {
+    const data = await querySpotify("https://api.spotify.com/v1/search?q=" + query.trim().replaceAll(" ", "+") + "&type=" + type + "&limit=" + limit);
+    return data;
+}
+
+async function querySpotify(query: string) {
     const session = await auth();
 
     if (session && session.user) {
         let token = session.accessToken
 
-        const response = await fetch("https://api.spotify.com/v1/me/top/" + type + "?limit=" + limit, {
+        const response = await fetch(query, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
 
-        return (await response.json()).items;
+        return await response.json();
     }
 }
 

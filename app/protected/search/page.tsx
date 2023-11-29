@@ -1,78 +1,45 @@
 import { auth } from "@/auth";
-import Navbar from "@/components/nav";
-import { JSX } from "react";
 import BoxOneLine from "@/components/box_one_line";
 import BoxTwoLine from "@/components/box_two_line";
-import { Session } from "next-auth";
-import { SpotifyArtist, SpotifyTrack } from "@/spotify";
+import { SpotifyArtist, SpotifyTrack, getSearchTop } from "@/spotify";
 import { redirect } from "next/navigation";
+import BoxGrid from "@/components/grid";
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string } }) {
-    const session = await auth()
-
     if (searchParams.query) {
         return (
             <main>
-                <Navbar session={session}></Navbar>
-                <section>
-                    {await getTop('artist', session, 5, searchParams.query)}
-                    {await getTop('track', session, 5, searchParams.query)}
-                </section>
+                <div className="mt-10 ml-10">
+                    {await formatTopQueries("Artist Results", searchParams.query, 'artist')}
+                    {await formatTopQueries("Track Results", searchParams.query, 'track')}
+                </div>
             </main>
         );
     } else {
         redirect('/protected/profile')
     }
-
-
 }
 
-// TODO: Needs refactoring
-async function getTop(type: string, session: Session | null, number: Number, query: string) {
-    if (session) {
-        let token = session.accessToken
-
-        const response = await fetch("https://api.spotify.com/v1/search?q=" + query.trim().replaceAll(" ", "+") + "&type=" + type + "&limit=" + number, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-
-        // console.log(query.trim().replaceAll(" ", "+"))
-        // console.log(response)
-
-        return (
-            <div className="my-8 ml-10">
-                <h2 className="text-5xl font-bold mb-4">{type.charAt(0).toUpperCase() + type.substring(1)} Results</h2>
-                <div className="flex flex-row gap-16 ml-10 mr-20 my-12">
-                    {await parseResponse(type, response)}
-                </div>
-            </div>
-        );
-    }
-}
-
-// TODO: Needs refactoring
-async function parseResponse(type: string, response: Response): Promise<JSX.Element | undefined> {
-    if (response.status == 204) {
-        console.log("204 response from currently playing")
-        return;
-    }
-
-    const data = await response.json();
+async function formatTopQueries(title: string, query: string, type: string, limit: Number = 5) {
+    const data = await getSearchTop(query, type, limit);
+    let html = <></>;
 
     if (type === 'artist') {
-        return data.artists.items.map((item: SpotifyArtist, index: Number) => {
+        html = data.artists.items.map((item: SpotifyArtist, index: Number) => {
             console.log(item)
             return <BoxOneLine key={item.id} spotifyId={item.id} type="artist" title={item.name} imageUrl={item.images[1]?.url || ''} ranking={Number(index) + 1} starRating={0.01} />
         });
     } else if (type === 'track') {
-        return data.tracks.items.map((track: SpotifyTrack, index: Number) => {
+        html = data.tracks.items.map((track: SpotifyTrack, index: Number) => {
             let album = track.album
 
             return <BoxTwoLine key={track.id} spotifyId={track.id} type="track" title={track.name} subtitle={album.name} imageUrl={album.images[1]?.url || ''} ranking={Number(index) + 1} starRating={0.01} />
         });
     }
 
-    return <></>;
+    return (
+        <BoxGrid title={title}>
+            {html}
+        </BoxGrid>
+    );
 }

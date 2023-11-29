@@ -1,17 +1,15 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Image from 'next/image'
 import Link from 'next/link';
 import LoginNav from '@/components/sign_in_button';
 import Logo from '@/components/logo';
-import { Session } from 'next-auth';
 import Searchbar from '@/components/search_bar';
 import Profile from '/public/profile.svg';
+import { auth } from '@/auth';
 
-interface NavbarProps {
-    session: Session | null
-}
+const Navbar: React.FC = async () => {
+    const session = await auth();
 
-const Navbar: React.FC<NavbarProps> = async ({ session }) => {
     return (
         <nav className="bg-gray-800 mb-6">
             <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
