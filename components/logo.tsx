@@ -14,7 +14,7 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ logoSize, fontSize, className }) => {
     return (
         <div className={"flex " + className}>
-            <Image src="/tuneify.svg" alt="Tuneify Logo" width={logoSize} height={logoSize} />
+            <Image src="/tuneify2.svg" alt="Tuneify Logo" width={logoSize} height={logoSize} />
             <Link href="/" className={russo.className + " text-white text-" + fontSize + "xl font-bold ml-2 my-auto"}>TUNEIFY</Link>
         </div>
     );
