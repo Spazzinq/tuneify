@@ -39,7 +39,7 @@ async function formatReviews(tuneifyId: number | undefined) {
           return (
             <BoxLarge key={review.spotifyId} spotifyId={review.spotifyId} type={review.cache.type}
               title={review.cache.name || ''} subtitle={review.cache.type.charAt(0).toUpperCase() + review.cache.type.substring(1)}
-              imageUrl={review.cache.imageUrl} starRating={review.stars} content={review.content || ''}
+              imageUrl={review.cache.imageUrl} starRating={review.stars} contentTitle={review.title || ''} content={review.content || ''}
               noEdit={await getCurrentTuneifyId() != tuneifyId} className="p-4 rounded-lg drop-shadow-lg bg-slate-800" />
           );
         }

@@ -11,6 +11,7 @@ interface BoxLargeProps {
     title: string;
     subtitle?: string;
     imageUrl: string | null;
+    contentTitle?: string;
     content?: string;
     date?: string;
     starRating: number;
@@ -18,7 +19,7 @@ interface BoxLargeProps {
     noEdit?: boolean;
 }
 
-const BoxLarge: React.FC<BoxLargeProps> = ({ spotifyId, type, title, subtitle, imageUrl, content, date, starRating, className, noEdit }) => {
+const BoxLarge: React.FC<BoxLargeProps> = ({ spotifyId, type, title, subtitle, imageUrl, contentTitle, content, date, starRating, className, noEdit }) => {
     return (
         <div className={className}>
             <div className="flex">
@@ -40,7 +41,13 @@ const BoxLarge: React.FC<BoxLargeProps> = ({ spotifyId, type, title, subtitle, i
                     </div>
                 </div>
             </div>
-            {content ? <p className="mt-4 text-sm break-all">{content}</p> : <></>}
+            
+            {content ? 
+            <div>
+                <h2 className='mt-4 text-lg'> {contentTitle} </h2>
+                <p className="mt-2 text-sm break-all">{content}</p> 
+            </div>
+            : <></>}
         </div>
 
     );
