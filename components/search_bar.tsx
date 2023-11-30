@@ -1,10 +1,10 @@
 'use client'
 
-import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { usePathname, useRouter } from 'next/navigation';
 
+// Component style from https://mui.com/material-ui/react-app-bar/
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -58,15 +58,8 @@ export default function Searchbar() {
         router.replace(`/protected/search?query=${query}`);
     };
 
-    const search2 = (event: React.FormEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        const target = event.target as HTMLInputElement;
-        const query = target.value;
-        router.replace(`/protected/search?querey=${query}`);
-    };
-
     return (
-        <Search onChange={path.startsWith('/protected/search') ? search : search} onSubmit={search2}>
+        <Search onChange={search}>
             <SearchIconWrapper>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                     <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />

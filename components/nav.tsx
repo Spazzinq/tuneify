@@ -17,9 +17,7 @@ const Navbar: React.FC = async () => {
                 <div className="flex flex-row items-center justify-center h-16 gap-5">
                     <Logo logoSize={40} fontSize={3} className="mr-auto" />
                     <Searchbar />
-                    {/* <NewSearch /> */}
                     <div className="flex">
-                        {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                         <Link href="/protected/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                             Profile
                         </Link>

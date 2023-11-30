@@ -2,12 +2,11 @@ import { PrismaClient, cache } from '@prisma/client'
 import { auth } from '@/auth'
 import { Session } from 'next-auth'
 
-// Function to create a singleton instance of PrismaClient
+// Function to recreate a singleton instance of PrismaClient
 const prismaClientSingleton = () => {
     return new PrismaClient()
 }
 
-// Define the type for the PrismaClient singleton
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
 
 // Define a global variable to store the PrismaClient singleton
@@ -22,6 +21,8 @@ const prisma = globalForPrisma.prisma ?? prismaClientSingleton()
 export default prisma
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+
+
 
 /**
  * Creates a user in the database

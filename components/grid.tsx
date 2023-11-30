@@ -1,4 +1,4 @@
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode } from 'react';
 import { Russo_One } from 'next/font/google';
 
 const russo = Russo_One({ subsets: ['latin'], weight: "400" })

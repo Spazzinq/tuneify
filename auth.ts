@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 
 import { getServerSession } from "next-auth"
 import authOptions from "@/auth.config"
 
-// Use it in server contexts
+// Use in server contexts
 export function auth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
   return getServerSession(...args, authOptions)
 }

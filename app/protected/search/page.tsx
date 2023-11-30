@@ -22,7 +22,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
  * Format top search queries
  * @param title Title of the section
  * @param query Query to search
- * @param type Type of query ('artists' or 'tracks)
+ * @param type Type of query ('artist' or 'track')
  * @param limit Number of results to display
  * @returns HTML code displaying the top queries of the specified type
  */

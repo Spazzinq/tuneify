@@ -1,12 +1,9 @@
-import { auth } from '@/auth';
 import { getAllReviews } from '@/db';
 import BoxOneLine from '@/components/box_one_line';
 import Link from 'next/link';
 import { getCurrentTuneifyId } from '@/db';
 
 export default async function Diary() {
-  const session = await auth()
-
   return (
     <main>
       <div>
