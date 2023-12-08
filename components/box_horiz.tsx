@@ -24,7 +24,7 @@ const BoxHoriz: React.FC<BoxHorizProps> = ({ spotifyId, type, title, subtitle, i
         <div className={"flex " + className}>
             <Link href={"https://open.spotify.com/" + type + "/" + spotifyId} target="_blank">
                 <Suspense fallback={<Skeleton animation="wave" variant="rounded" width={200} height={200} className="bg-gray-700" />}>
-                    <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="rounded-lg aspect-square" />
+                    <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="rounded-lg aspect-square" priority />
                 </Suspense>
             </Link>
             <div className="flex flex-col justify-center ml-6">
@@ -33,7 +33,7 @@ const BoxHoriz: React.FC<BoxHorizProps> = ({ spotifyId, type, title, subtitle, i
                 {date ? <h3>{date}</h3> : <></>}
                 <div className="flex flex-row">
                     <CustomRating spotifyId={spotifyId} type={type} starRating={starRating} noEdit={noEdit} />
-                    { noEdit ? <></> : EditIcon }
+                    { noEdit ? <></> : <Image src={EditIcon} alt="Edit icon" /> }
 
                 </div>
                 {content ? <span className="mt-4 text-sm break-all">{content}</span> : <></>}

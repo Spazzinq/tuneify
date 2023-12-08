@@ -40,8 +40,7 @@ export async function createUser(url: string, name: string, id: string, email: s
                 email: email
             }
         })) {
-            // If the user already exists, log a message and return
-            console.log("User already exists!");
+            // If the user already exists, return
             return;
         }
         // Create a new user in the database using Prisma
@@ -144,22 +143,14 @@ export async function getReview(tuneifyId: number | undefined, spotifyId: string
  */
 export async function getReviewFromCurrent(spotifyId: string) {
     try {
-        // Use Prisma to find the first user with the specified Spotify ID and retrieve Tuneify ID and associated reviews
-        const userItem = await prisma.user.findFirst({
+        const reviewItem = await prisma.review.findFirst({
             where: {
-                tuneifyId: await getCurrentTuneifyId()
-            },
-            select: {
-                tuneifyId: true,
-                review: {
-                    where: {
-                        spotifyId: spotifyId,
-                    },
-                },
+                tuneifyId: await getCurrentTuneifyId(),
+                spotifyId: spotifyId,
             },
         })
 
-        return userItem;
+        return reviewItem;
     } catch (error) {
         // If an error occurs during Tuneify ID and review retrieval, log the error
         console.error("Error finding tuneify id with review:", error);
@@ -210,7 +201,13 @@ export async function getAllReviews(tuneifyId: number | undefined) {
             },
             // Include details from the associated cache for each review
             include: {
-                cache: true,
+                cache: {
+                    select: {
+                        name: true,
+                        imageUrl: true,
+                        type: true,
+                    },
+                },
             }
         });
     }
@@ -295,9 +292,67 @@ export async function getProfPic(tuneifyId: number | undefined) {
 }
 
 /**
+ * Returns the user from the database
+ * @param tuneifyId Tuneify ID of the user
+ * @returns The user
+ */
+export async function getUser(tuneifyId: number | undefined) {
+    if (tuneifyId) {
+        // Use Prisma to find a unique user based on the Tuneify ID
+        const user = await prisma.user.findUnique({
+            where: {
+                tuneifyId: tuneifyId
+            },
+        });
+        // If the user is found, return their name
+        if (user) {
+            return user
+        }
+    }
+}
+
+/**
  * Gets the current user's Spotify image URL
  * @returns The current user's Spotify image URL
  */
 export async function getCurrentProfPic() {
     return await getProfPic(await getCurrentTuneifyId());
+}
+
+/**
+ * Returns most frequent reviewers in an json array
+ * @returns The most frequent reviewers in an json array
+ */
+export async function getTopReviewers() {
+    const topReviewers = await prisma.review.groupBy({
+        by: ['tuneifyId'],
+        _count: true,
+        orderBy: {
+            _count: {
+                tuneifyId: 'desc',
+            },
+        },
+        take: 5,
+    });
+
+    return topReviewers;
+}
+
+/**
+ * Returns most frequent reviewers in an json array
+ * @returns The most frequent reviewers in an json array
+ */
+export async function getMostReviewed() {
+    const mostReviewed = await prisma.review.groupBy({
+        by: ['spotifyId'],
+        _count: true,
+        orderBy: {
+            _count: {
+                spotifyId: 'desc',
+            },
+        },
+        take: 5,
+    });
+
+    return mostReviewed;
 }

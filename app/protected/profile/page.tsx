@@ -4,7 +4,9 @@ import BoxTwoLine from "@/components/box_two_line";
 import { createUser, getReview, getCurrentTuneifyId } from "@/db";
 import { SpotifyArtist, SpotifyTrack, getUserTop } from "@/spotify";
 import Link from "next/link";
+import Image from 'next/image';
 import BoxGrid from "@/components/grid";
+import ShareIcon from '/public/share.svg';
 
 export default async function Page() {
     const session = await auth()
@@ -21,14 +23,12 @@ export default async function Page() {
     return (
         <main>
             <section>
-                <div className="mt-10 mb-20 ml-10">
+                <div className="mt-20 mb-20 ml-10">
                     <h2 className="text-4xl text-center pt-6 ml-2 mb-2">Here are your top artists and tracks!</h2>
-                    <h3 className="text-2xl text-center ml-2 mb-12">Tell people what you think about them.</h3>
+                    <h3 className="text-2xl text-center ml-2 mb-12">Tell us what you think about them.</h3>
                     <Link href={"/protected/user/" + await getCurrentTuneifyId()} target="_blank">
                         <div className="flex justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-                            </svg>
+                            <Image src={ShareIcon} alt="Share button" />
                             <h3 className="ml-3">Share your reviews</h3>
                         </div>
                     </Link>

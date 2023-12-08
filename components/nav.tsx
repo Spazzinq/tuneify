@@ -12,7 +12,7 @@ const Navbar: React.FC = async () => {
     const session = await auth();
 
     return (
-        <nav className="bg-gray-800 mb-6">
+        <nav className="mb-6">
             <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
                 <div className="flex flex-row items-center justify-center h-16 gap-5">
                     <Logo logoSize={40} fontSize={3} className="mr-auto" />
