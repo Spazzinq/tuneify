@@ -10,7 +10,7 @@ interface LoginNavProps {
 const LoginNav: React.FC<LoginNavProps> = ({ session }) => {
     return (
         <button className="bg-white hover:bg-gray-100 text-gray-800 font-bold rounded px-4 mr-2"
-            onClick={() => { session && session.user ? signOut() : signIn('spotify', { callbackUrl: 'http://localhost:3000/protected/profile' }) }}>
+            onClick={() => { session && session.user ? signOut() : signIn('spotify', { callbackUrl: '/protected/profile' }) }}>
             {session && session.user ? "Sign Out" : "Sign In"}
         </button>
     );

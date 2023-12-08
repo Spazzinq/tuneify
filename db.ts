@@ -40,7 +40,7 @@ export async function createUser(url: string, name: string, id: string, email: s
                 email: email
             }
         })) {
-        // If the user already exists, log a message and return
+            // If the user already exists, log a message and return
             console.log("User already exists!");
             return;
         }
@@ -138,6 +138,35 @@ export async function getReview(tuneifyId: number | undefined, spotifyId: string
 }
 
 /**
+ * Gets Tuneify ID and review associated with the specified Spotify ID from the database
+ * @param spotifyId Spotify ID of the reviewed item
+ * @returns A user item with Tuneify ID and reivew
+ */
+export async function getReviewFromCurrent(spotifyId: string) {
+    try {
+        // Use Prisma to find the first user with the specified Spotify ID and retrieve Tuneify ID and associated reviews
+        const userItem = await prisma.user.findFirst({
+            where: {
+                tuneifyId: await getCurrentTuneifyId()
+            },
+            select: {
+                tuneifyId: true,
+                review: {
+                    where: {
+                        spotifyId: spotifyId,
+                    },
+                },
+            },
+        })
+
+        return userItem;
+    } catch (error) {
+        // If an error occurs during Tuneify ID and review retrieval, log the error
+        console.error("Error finding tuneify id with review:", error);
+    }
+}
+
+/**
  * Gets a number of most recent reviews from the database
  * @param type Type of reviews
  * @param limit Number of reviews to fetch
@@ -195,7 +224,7 @@ export async function getAllReviews(tuneifyId: number | undefined) {
 export async function getCurrentTuneifyId() {
     // Authenticate the user and obtain the session information
     const session = await auth();
-    
+
     // Use the session information to retrieve the Tuneify ID
     return await getTuneifyId(session);
 }
@@ -226,40 +255,6 @@ export async function getTuneifyId(session: Session | null | undefined) {
 }
 
 /**
- * Gets Tuneify ID and review associated with the specified Spotify ID from the database
- * @param spotifyId Spotify ID of the reviewed item
- * @returns A user item with Tuneify ID and reivew
- */
-export async function getTuneifyIdWithReview(spotifyId: string) {
-    const session = await auth();
-
-    // Check if session information and user ID are available
-    if (session && session.user && session.user.id) {
-        try {
-            // Use Prisma to find the first user with the specified Spotify ID and retrieve Tuneify ID and associated reviews
-            const userItem = await prisma.user.findFirst({
-                where: {
-                    userSpotifyId: session.user.id,
-                },
-                select: {
-                    tuneifyId: true,
-                    review: {
-                        where: {
-                            spotifyId: spotifyId,
-                        },
-                    },
-                },
-            })
-
-            return userItem;
-        } catch (error) {
-            // If an error occurs during Tuneify ID and review retrieval, log the error
-            console.error("Error finding tuneify id with review:", error);
-        }
-    }
-}
-
-/**
  * Gets the name of the user from the database
  * @param tuneifyId Tuneify ID of the user
  * @returns User's name
@@ -277,4 +272,32 @@ export async function getName(tuneifyId: number | undefined) {
             return user.name
         }
     }
+}
+
+/**
+ * Gets the email of the user from the database
+ * @param tuneifyId Tuneify ID of the user
+ * @returns User's email
+ */
+export async function getProfPic(tuneifyId: number | undefined) {
+    if (tuneifyId) {
+        // Use Prisma to find a unique user based on the Tuneify ID
+        const user = await prisma.user.findUnique({
+            where: {
+                tuneifyId: tuneifyId
+            },
+        });
+        // If the user is found, return their name
+        if (user) {
+            return user.imageUrl
+        }
+    }
+}
+
+/**
+ * Gets the current user's Spotify image URL
+ * @returns The current user's Spotify image URL
+ */
+export async function getCurrentProfPic() {
+    return await getProfPic(await getCurrentTuneifyId());
 }

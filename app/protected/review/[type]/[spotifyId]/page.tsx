@@ -1,5 +1,5 @@
 import BoxHoriz from '@/components/box_horiz';
-import prisma, { getFromCache, getTuneifyIdWithReview } from '@/db';
+import prisma, { getFromCache, getReviewFromCurrent } from '@/db';
 import { redirect } from 'next/navigation';
 
 export default async function Review({ params, searchParams }: { params: { spotifyId: string, type: string }, searchParams: { [key: string]: string | string[] | undefined } }) {
@@ -15,7 +15,7 @@ export default async function Review({ params, searchParams }: { params: { spoti
       const content = formData.get('content')
 
       if (title && content) {
-        const userItem = await getTuneifyIdWithReview(params.spotifyId)
+        const userItem = await getReviewFromCurrent(params.spotifyId)
 
         if (userItem) {
           if (userItem.review[0]) {
@@ -52,7 +52,7 @@ export default async function Review({ params, searchParams }: { params: { spoti
   const data = await getFromCache(params.spotifyId);
 
   if (data) {
-    const userItem = await getTuneifyIdWithReview(params.spotifyId)
+    const userItem = await getReviewFromCurrent(params.spotifyId)
 
     return (
       <main>

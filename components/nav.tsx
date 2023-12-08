@@ -4,9 +4,9 @@ import Link from 'next/link';
 import LoginNav from '@/components/sign_in_button';
 import Logo from '@/components/logo';
 import Searchbar from '@/components/search_bar';
-import Profile from '/public/profile.svg';
+import UnknownProfile from '/public/profile.svg';
 import { auth } from '@/auth';
-import { getCurrentTuneifyId } from '@/db';
+import { getCurrentProfPic, getCurrentTuneifyId } from '@/db';
 
 const Navbar: React.FC = async () => {
     const session = await auth();
@@ -29,7 +29,7 @@ const Navbar: React.FC = async () => {
                         </Link>
                     </div>
                     <div className="flex flex-row ml-auto">
-                        <Image src={session?.user?.image || Profile} alt="Profile Picture" placeholder='blur' blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
+                        <Image src={await getCurrentProfPic() || UnknownProfile} alt="User's profile picture" className="h-10 w-10 rounded-full mr-2" width={40} height={40} />
                         <LoginNav session={session}></LoginNav>
                     </div>
                 </div>
