@@ -26,7 +26,7 @@ const BoxLarge: React.FC<BoxLargeProps> = ({ spotifyId, type, title, subtitle, i
             <div className="flex">
                 <Link href={"https://open.spotify.com/" + type + "/" + spotifyId} target="_blank">
                     <Suspense fallback={<Skeleton animation="wave" variant="rounded" width={100} height={100} className="bg-gray-700" />}>
-                        <Image src={imageUrl || Tuneify} alt={title} width='100' height='100' className="rounded-lg aspect-square" priority />
+                        <Image src={imageUrl || Tuneify} alt={title} width='100' height='100' className="aspect-square" priority />
                     </Suspense>
                 </Link>
                 <div className="flex flex-col justify-center ml-4">

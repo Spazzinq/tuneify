@@ -24,7 +24,7 @@ const BoxHoriz: React.FC<BoxHorizProps> = ({ spotifyId, type, title, subtitle, i
         <div className={"flex " + className}>
             <Link href={"https://open.spotify.com/" + type + "/" + spotifyId} target="_blank">
                 <Suspense fallback={<Skeleton animation="wave" variant="rounded" width={200} height={200} className="bg-gray-700" />}>
-                    <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="rounded-lg aspect-square" priority />
+                    <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="aspect-square" priority />
                 </Suspense>
             </Link>
             <div className="flex flex-col justify-center ml-6">

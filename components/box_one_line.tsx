@@ -25,11 +25,11 @@ const BoxOneLine: React.FC<BoxOneLineProps> = ({ spotifyId, type, title, imageUr
 
     return (
         <div className="relative">
-            {ranking ? <h3 className="text-5xl font-bold drop-shadow-lg absolute -left-3 -top-3">{ranking}</h3> : <></>}
+            {/* {ranking ? <h3 className="text-5xl font-bold drop-shadow-lg absolute -left-3 -top-3">{ranking}</h3> : <></>} */}
             <div className='mb-3'>
                 <Link href={spotifyId && type ? "https://open.spotify.com/" + type + "/" + spotifyId : "/"} target="_blank">
                     <Suspense fallback={<Skeleton animation="wave" variant="rounded" width={200} height={200} className="bg-gray-700" />}>
-                        <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="rounded-lg aspect-square" priority />
+                        <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="aspect-square" priority />
                     </Suspense>
                 </Link>
             </div>

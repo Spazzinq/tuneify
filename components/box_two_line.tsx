@@ -29,10 +29,10 @@ const BoxTwoLine: React.FC<BoxTwoLineProps> = ({ spotifyId, type, title, subtitl
 
         return (
             <div className="relative">
-                {ranking ? <h3 className="text-5xl font-bold absolute -left-3 -top-3">{ranking}</h3> : <></>}
+                {/* {ranking ? <h3 className="text-5xl font-bold absolute -left-3 -top-3">{ranking}</h3> : <></>} */}
                 <Link href={"https://open.spotify.com/" + type + "/" + spotifyId} target="_blank">
                     <Suspense fallback={<Skeleton animation="wave" variant="rounded" width={200} height={200} className="bg-gray-700" />}>
-                        <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="rounded-lg mb-4" priority />
+                        <Image src={imageUrl || Tuneify} alt={title} width='200' height='200' className="mb-4" priority />
                     </Suspense>
                 </Link>
                 <div className="flex flex-col mb-1">
